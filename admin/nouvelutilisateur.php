@@ -1,14 +1,14 @@
 <?php 
 session_start();
-require_once 'composants/db.php';
+require_once '../composants/db.php';
 
 function cleandata($data){
 	return trim(htmlentities($data));
 }
 
-$post = array_map('clean_data', $_POST);
+$post = array_map('cleandata', $_POST);
 
-$error = array()
+$error = array();
 $errorForm = false;
 $valideForm = false;
 
@@ -52,7 +52,7 @@ if (!empty($post)) {
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Nouvel utilisateur</title>
 	<meta charset="utf-8">
 </head>
 <body>
