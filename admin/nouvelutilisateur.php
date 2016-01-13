@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require_once '../composants/db.php';
 
@@ -15,38 +15,37 @@ $valideForm = false;
 
 	// TRAITEMENT DU FORMULAIRE
 if (!empty($post)) {
-	if(isset($post['pseudo'])){
+	if(isset($post['pseudo']) && isset($post['email']) && isset($post['password']) && isset($post['password2']) && isset($post['role'])){
 		if (empty($post['pseudo'])) {
 			$error[] = 'Le champ pseudo ne doit pas être vide';
 		}
-	} else {
-		$error[] = 'Le champ pseudo ne doit pas être vide';
-	}
 
+  	if (empty($post['email'])) {
+  		$error[] = 'Le champ email ne doit pas être vide';
+  	}
+  	elseif (!filter_var($post['email'], FILTER_VALIDATE_EMAIL)) {
+  		$error[] = 'La syntaxe de l\'email n\'est pas correcte';
+  	}
 
-	if (empty($post['email'])) {
-		$error[] = 'Le champ email ne doit pas être vide';
-	}
-	elseif (!filter_var($post['email'], FILTER_VALIDATE_EMAIL)) {
-		$error[] = 'La syntaxe de l\'email n\'est pas correcte';
-	}
+  	if (empty($post['password'])) {
+  		$error[] = 'Le champ mot de passe ne doit pas être vide';
+  	}
 
-	if (empty($post['password'])) {
-		$error[] = 'Le champ mot de passe ne doit pas être vide';
-	}
+  	if ($post['password'] != $post['password2']) {
+  		$error[] = 'Les deux mots de passe doivent être identique';
+  	}
 
-	if ($post['password'] != $post['password2']) {
-		$error[] = 'Les deux mots de passe doivent être identique';
-	}
+  	if (isset($post['role'])) {
+  		if (!($post['role'] == 'admin' || $post['role'] == 'editor')) {
+  			$error[] = 'Role incorrect';
+  		}
+  	} else {
+  		$error[] = 'Role incorrect';
+  	}
+  } else {
+    $error[] = 'Formulaire invalide.';
+  }
 
-	if (isset($post['role'])) {
-		if (!($post['role'] == 'admin' || $post['role'] == 'editor')) {
-			$error[] = 'Role incorrect';
-		}
-	} else {
-		$error[] = 'Role incorrect';
-	}
-		
 	 // Insertion dans la base de donnée si il n'y a pas d'erreur
 	if(count($error) == 0) {
 		$insertuser = $pdo_database->prepare('INSERT INTO users(email, password, username) VALUES(:email, :password, :username)');
@@ -70,7 +69,7 @@ if (!empty($post)) {
 
 	if (count($error) > 0 ) {
 		$errorForm = true;
-	}	
+	}
 
 
 }
@@ -89,7 +88,7 @@ if (!empty($post)) {
 	// Affichage des erreurs
 	if ($errorForm) {
 		echo '<p style="color:red">'.implode('<br>', $error).'</p>';
-	} 
+	}
 	// Message de succès
 	elseif ($valideForm) {
 		echo '<p style="color:green">Le compte a bien été crée</p>';
@@ -115,7 +114,7 @@ if (!empty($post)) {
 			<option value="editor">Editeur</option>
 		</select>
 		<input type="submit" value="Envoyer">
-	</form>	
+	</form>
 
 
 </body>
