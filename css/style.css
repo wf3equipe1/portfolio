@@ -2,6 +2,7 @@
 @import url('normalize.css');
 
 
+/* __________________GLOBAL_____________________ */
 html
 {
 	height: 100%;
@@ -10,7 +11,7 @@ body
 {
 	font-family: arial, sans-serif;
 	height: 100%;
-	background-color: grey;
+	background-color: aliceblue;
 }
 
 main
@@ -24,7 +25,7 @@ main
 #leftSide
 {
 	width: 30%;
-	background-color: aliceblue;
+	background-color: #DCDCDC;
 	float:left;
 
 
@@ -41,3 +42,58 @@ main
 {
 	height: 100%;
 }
+
+
+/* __________________PARTIE GAUCHE_____________________ */
+
+/* HEADER */
+#leftSide header
+{
+	text-align: center;
+	color: #3EA4E8;
+}
+#leftSide header img
+{
+	margin-top: 50%;
+	border: 5px #3EA4E8 solid;
+	border-radius: 50%;
+	height: 150px;
+	width: 150px;
+	margin-bottom: 30px;
+}
+#leftSide header ul li
+{
+	margin-bottom: 4%;
+	font-size: 1.25em;
+}
+
+/* NAV */
+#leftSide nav
+{
+	text-align: center;
+}
+#leftSide nav ul li a 
+{
+	color: #3EA4E8;
+	text-decoration: none;
+	padding: 5px;
+	border-left: 4px solid transparent;
+}
+#leftSide nav ul li a:hover
+{
+	border-left: 4px solid #3EA4E8;
+}
+#leftSide nav ul
+{
+	margin-top: 50%;
+	text-align: left;
+	display: inline-block;
+}
+#leftSide nav ul li
+{
+	margin-bottom: 20%;
+	font-size: 1.45em;
+}
+
+/* __________________PARTIE DROITE_____________________ */
+

@@ -1,10 +1,10 @@
 <section id="leftSide">
 	<header>
-		<img src="" alt="clientPicture">
+		<img src="images/photo_exemple.jpg" alt="clientPicture">
 		<ul>
 			<li>Nom Prenom</li>
 			<li>tel :06.12.34.56.78</li>
-			<li>email:email@contatct.me</li>
+			<li>Email:email@contatct.me</li>
 		</ul>
 	</header>
 
