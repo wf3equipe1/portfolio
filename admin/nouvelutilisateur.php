@@ -33,7 +33,7 @@ if (!empty($post)) {
 		$errorForm = true;
 	}
 	else {
-		$insertuser = $bdd->prepare('INSERT INTO users(email, password, username) VALUES(:email, :password, :username)');
+		$insertuser = $pdo_database->prepare('INSERT INTO users(email, password, username) VALUES(:email, :password, :username)');
 		$insertuser->bindValue(':email', $post['email'], PDO::PARAM_STR);
 		$insertuser->bindValue(':password', password_hash($post['password'], PASSWORD_DEFAULT), PDO::PARAM_STR);
 		$insertuser->bindValue(':username', $post['pseudo'], PDO::PARAM_STR);
