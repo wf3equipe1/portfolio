@@ -1,10 +1,23 @@
+<?php 
+	require_once'composants/db.php';
+
+	$req=$pdo_database->prepare('SELECT * FROM options');
+	$req->execute();
+	$result=$req->fetchAll(PDO::FETCH_ASSOC);
+
+	$donnee=array();//variable pour recuperer les value des champs
+
+	foreach ($result as $value) {
+		$donnee[$value['data']] = $value['value'];//chaque dat donne une value
+	}
+?>
 <section id="leftSide">
 	<header>
 		<img src="images/photo_exemple.jpg" alt="clientPicture">
 		<ul>
-			<li>Nom Prenom</li>
-			<li>tel :06.12.34.56.78</li>
-			<li>Email:email@contatct.me</li>
+			<li><i class="fa fa-user"></i> <?=$donnee['lastname'].' '.$donnee['firstname']; ?></li>
+			<li><i class="fa fa-phone"></i> <?=$donnee['phone']; ?></li>
+			<li><i class="fa fa-envelope"></i> <?=$donnee['email']; ?></li>
 		</ul>
 	</header>
 
