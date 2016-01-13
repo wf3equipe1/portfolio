@@ -1,0 +1,40 @@
+<?php
+
+### index.php
+
+page d'accueil principale (sur laquelle arrive les visiteurs)
+
+comprend un "<header>"" en <section> gauche avec menu <nav>
++ les coordonnée + avatar du client
+
+comprend une (grande) photo
+
+comprend 3 <article> "actus"
+
+
+
+
+### actulites.php
+
+
+afficher 5 articles du + récent au + ancien
+
+un systeme de pagination
+
+un champ de recherche en haut
+chaque article doit pouvoir être afficher
+
+
+### contact
+
+formulaire de contact
+email, nom, sujet, message
+submit = envoyer
+
+
+### 
+
+
+
+
+?>
