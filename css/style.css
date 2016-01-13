@@ -1,0 +1,25 @@
+@import url('reset.css');
+@import url('normalize.css');
+
+
+body
+{
+	font-family: arial, sans-serif;
+}
+
+main
+{
+	max-width: 900px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+#leftSide
+{
+	width: 30%;
+}
+
+#rightSide
+{
+	
+}
