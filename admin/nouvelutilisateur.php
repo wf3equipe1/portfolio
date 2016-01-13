@@ -2,6 +2,7 @@
 session_start();
 require_once '../composants/db.php';
 
+ // Nettoyage du formulaire
 function cleandata($data){
 	return trim(htmlentities($data));
 }
@@ -12,6 +13,7 @@ $error = array();
 $errorForm = false;
 $valideForm = false;
 
+	// TRAITEMENT DU FORMULAIRE
 if (!empty($post)) {
 	
 	if (empty($post['pseudo'])) {
@@ -29,9 +31,14 @@ if (!empty($post)) {
 		$error[] = 'Le champ mot de passe ne doit pas être vide';
 	}
 
+	if ($post['password'] != $post['password2']) {
+		$error[] = 'Les deux mots de passe doivent être identique';
+	}
+		
 	if (count($error) > 0 ) {
 		$errorForm = true;
 	}
+	 // Insertion dans la base de donnée si il n'y a pas d'erreur
 	else {
 		$insertuser = $pdo_database->prepare('INSERT INTO users(email, password, username) VALUES(:email, :password, :username)');
 		$insertuser->bindValue(':email', $post['email'], PDO::PARAM_STR);
@@ -57,16 +64,19 @@ if (!empty($post)) {
 </head>
 <body>
 <?php
+
+	// Affichage des erreurs
 	if ($errorForm) {
 		echo '<p style="color:red">'.implode('<br>', $error).'</p>';
 	}
 
+	// Message de succès
 	if ($valideForm) {
 		echo '<p style="color:green">Le compte a bien été crée</p>';
 	}
 ?>
 
-
+	<!-- Formulaire -->
 	<form method="POST">
 		<label for="pseudo">Pseudo</label>
 		<input type="text" name="pseudo" id="pseudo" placeholder="Votre pseudo">
@@ -77,6 +87,8 @@ if (!empty($post)) {
 		<label for="password">Mot de passe</label>
 		<input type="password" name="password" id="password">
 		<br>
+		<label for="password2">Confirmation mot de passe</label>
+		<input type="password" name="password2" id="password2">
 		<input type="submit" value="Envoyer">
 	</form>	
 
