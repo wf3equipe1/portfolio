@@ -21,9 +21,9 @@ require_once 'composants/db.php';
 	 		<header>
 	 			<h1>Titre Portfolio</h1>
 
-	 			<img src="" alt="couverture" id="cover">
+	 			<img src="images/cover_exemple.jpg" alt="couverture" id="cover">
 	 		</header>
-	 		<div id="newsIndex">
+	 		<div id="blocNews">
 	 			<h1>Les news</h1>
 
 	 		</div>
