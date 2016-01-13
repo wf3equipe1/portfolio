@@ -16,12 +16,12 @@ require_once 'composants/db.php';
  <body>
 	 <main>
 	 	<?php include_once 'composants/menugauche.php'; //MENU DE GAUCHE?>
-	 	
+
 	 	<section id="rightSide">
 	 		<header>
 	 			<h1>Titre Portfolio</h1>
 
-	 			<div id="banner"></div>
+	 			<img src="" alt="couverture" id="cover">
 	 		</header>
 	 		<div id="newsIndex">
 	 			<h1>Les news</h1>
