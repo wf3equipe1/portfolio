@@ -6,12 +6,15 @@ function cleandata($data){
 	return trim(htmlentities($data));
 }
 
+//Nettoyage des inputs utilisateur
 $post = array_map('cleandata', $_POST);
 $get = array_map('cleandata', $_GET);
 
+//Verification de l'existance de la variable $_SESSION['isconnected']
 if(!isset($_SESSION['isconnected'])){
 	$_SESSION['isconnected'] = false;
 }
+//L'utilisateur est-il connecté.
 if (isset($get['logout']) && $_SESSION['isconnected']) {
 	$_SESSION = array('isconnected' => false);
 }
@@ -20,34 +23,42 @@ $error = array();
 $errorForm = false;
 $valideForm = false;
 
+//Verification du contenu du formulaire
 if (!empty($post)) {
-	
-	if (empty($post['email'])) {
-		$error[] = 'Veuillez saisir votre email';
-	}
+	if (!isset($post['email']) || !isset($post['password'])){
+    $error[] = 'Formulaire invalide';
+  } else {
+    if (empty($post['email'])) {
+      $error[] = 'Veuillez saisir votre email';
+    }
 
-	if (empty($post['password'])) {
-		$error[] = 'Veuillez saisir votre mot de passe';
-	}
+    if (empty($post['password'])) {
+      $error[] = 'Veuillez saisir votre mot de passe';
+    }
+  }
 
 	if (count($error) > 0) {
 		$errorForm = true;
 	}
 	else {
+    //Verification de l'existance de l'utilisateur
 		$req = $pdo_database->prepare('SELECT * FROM users WHERE email = :login LIMIT 1');
 		$req->bindValue(':login', $post['email']);
 
 		if ($req->execute()) {
 			$user = $req->fetch();
-			
+
 			if ($user==false) {
 				$error[] = 'Adresse email invalide';
 			}
+      //Verification du mot de passe:
 			elseif (password_verify($post['password'], $user['password'])) {
+        //Récupération des droits de l'utilisateur
 				$req = $pdo_database->prepare('SELECT role FROM roles WHERE id_user = :id');
 				$req->bindValue(':id', $user['id']);
 				$req->execute();
 				$role = $req->fetch();
+        //Si aucun droit ne correspond a l'utilisateur
 				if ($role == false) {
 					$error[] = 'Erreur de permission';
 				}
@@ -60,18 +71,13 @@ if (!empty($post)) {
 						);
 				}
 
-
-
 			}
 			else {
 				$error[] = 'Mot de passe incorrect';
 			}
 		}
 	}
-
 }
-
-
 
 ?>
 
@@ -95,7 +101,7 @@ if (!empty($post)) {
 	</form>
 <?php elseif (isset($get['logout']) && $_SESSION['isconnected']): ?>
 	<p>Vous avez été déconnecté.</p>
-<?php else: 
+<?php else:
 	header('Location: actualites.php');
 	die;
 endif; ?>
