@@ -2,9 +2,15 @@
 @import url('normalize.css');
 
 
+html
+{
+	height: 100%;
+}
 body
 {
 	font-family: arial, sans-serif;
+	height: 100%;
+	background-color: grey;
 }
 
 main
@@ -12,14 +18,26 @@ main
 	max-width: 900px;
 	width: 100%;
 	margin: 0 auto;
+	height: 100%;
 }
 
 #leftSide
 {
 	width: 30%;
+	background-color: aliceblue;
+	float:left;
+
+
 }
 
 #rightSide
 {
-	
+	width: 70%;
+	float: right;
+	background-color: white;
+}
+
+#rightSide, #leftSide
+{
+	height: 100%;
 }
