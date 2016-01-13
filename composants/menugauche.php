@@ -13,34 +13,19 @@
 ?>
 <section id="leftSide">
 	<header>
-		<img src="images/photo_exemple.jpg" alt="clientPicture">
+		<a href="index.php"><img src="<?php echo $donnee['main_image']; ?>" alt="clientPicture"></a>
 		<ul>
-			<li> 
-				<?php 
-					if(empty($donnee['lastname']) && empty($donnee['firstname'])){
-						
-					}else{
-						echo '<i class="fa fa-user"></i> '.$donnee['lastname'].' '.$donnee['firstname']; 
-					}
-				?>
-			</li>
-			<li>
-				<?php 
-					if(empty($donnee['phone'])){
-						 
-					}else{
-						echo '<i class="fa fa-phone"></i> '.$donnee['phone'];
-					}
-				?>
-			</li>
-			<li> 
-				<?php 
-					if(empty($donnee['email'])){
-						
-					}
-					echo '<i class="fa fa-envelope"></i> '.$donnee['email']; 
-				?>
-			</li>
+			<?php 
+			if(!empty($donnee['lastname']) && !empty($donnee['firstname'])){
+				echo '<li><i class="fa fa-user"></i> '.$donnee['lastname'].' '.$donnee['firstname'].'</li>'; 
+			} 
+			if(!empty($donnee['phone'])){
+				echo '<li><i class="fa fa-phone"></i> '.$donnee['phone'].'</li>';
+			}				
+			if(!empty($donnee['email'])){
+				echo '<li><i class="fa fa-envelope"></i> '.$donnee['email'] .'</li>'; 
+			}
+			?>
 		</ul>
 	</header>
 

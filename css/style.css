@@ -57,6 +57,13 @@ main
 	height: 150px;
 	width: 150px;
 	margin-bottom: 30px;
+
+	-moz-box-shadow: 0 3px 10px #888;
+    -webkit-box-shadow: 0 3px 10px #888;
+
+    -webkit-transform: rotateY(0deg); /*reviens au point d'origine*/
+    -webkit-transition-property: transform;
+    -webkit-transition-duration: 1.25s;
 }
 #leftSide header ul li
 {
@@ -155,4 +162,11 @@ article:hover
 {
 	background-color: #E6EAEC;
 	transition: background-color 1.2s linear;
+}
+
+#leftSide header img:hover
+{
+    -webkit-transform: rotateY(180deg);
+    -webkit-transition-property: transform;
+    -webkit-transition-duration: 1.5s;
 }
