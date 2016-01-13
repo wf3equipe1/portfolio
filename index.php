@@ -19,14 +19,22 @@ require_once'composants/db.php';
 	 	<?php include_once 'composants/menugauche.php'; //MENU DE GAUCHE?>
 
 	 	<section id="rightSide">
-	 		<header>
-	 			<h1>Titre Portfolio</h1>
-
-	 			<img src="images/cover_exemple.jpg" alt="couverture" id="cover">
-	 		</header>
+	 		<h1>Titre Portfolio</h1>
+	 		<img src="images/cover_exemple.jpg" alt="couverture" id="cover">
 	 		<div id="blocNews">
-	 			<h1>Les news</h1>
-
+	 			<h2>Les news</h2>
+				<article>
+					<h3>titre1</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga maiores, placeat? Consequatur corporis possimus, consectetur ducimus veniam accusamus fugiat perspiciatis, sed nemo, nobis quam explicabo similique necessitatibus quasi ullam doloribus.</p>
+				</article>
+				<article>
+					<h3>titre2</h3>
+					<p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia atque maxime ipsam laudantium velit eligendi aut, qui commodi alias sed at ad eveniet aspernatur sapiente id, nobis voluptas distinctio quas!</span><span>Consectetur placeat recusandae ut consequuntur mollitia cupiditate dicta, ex at repellendus suscipit praesentium voluptatem illo! Ipsum iste quos accusantium quasi harum dicta dignissimos assumenda rerum, libero recusandae eligendi amet. Incidunt.</span></p>
+				</article>
+				<article>
+					<h3>titre3</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga maiores, placeat? Consequatur corporis possimus, consectetur ducimus veniam accusamus fugiat perspiciatis, sed nemo, nobis quam explicabo similique necessitatibus quasi ullam doloribus.</p>
+				</article>
 	 		</div>
 	 	</section>
 	 </main>

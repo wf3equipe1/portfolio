@@ -15,9 +15,32 @@
 	<header>
 		<img src="images/photo_exemple.jpg" alt="clientPicture">
 		<ul>
-			<li><i class="fa fa-user"></i> <?=$donnee['lastname'].' '.$donnee['firstname']; ?></li>
-			<li><i class="fa fa-phone"></i> <?=$donnee['phone']; ?></li>
-			<li><i class="fa fa-envelope"></i> <?=$donnee['email']; ?></li>
+			<li> 
+				<?php 
+					if(empty($donnee['lastname']) && empty($donnee['firstname'])){
+						
+					}else{
+						echo '<i class="fa fa-user"></i> '.$donnee['lastname'].' '.$donnee['firstname']; 
+					}
+				?>
+			</li>
+			<li>
+				<?php 
+					if(empty($donnee['phone'])){
+						 
+					}else{
+						echo '<i class="fa fa-phone"></i> '.$donnee['phone'];
+					}
+				?>
+			</li>
+			<li> 
+				<?php 
+					if(empty($donnee['email'])){
+						
+					}
+					echo '<i class="fa fa-envelope"></i> '.$donnee['email']; 
+				?>
+			</li>
 		</ul>
 	</header>
 
