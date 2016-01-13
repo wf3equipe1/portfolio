@@ -7,6 +7,14 @@ function cleandata($data){
 }
 
 $post = array_map('cleandata', $_POST);
+$get = array_map('cleandata', $_GET);
+
+if(!isset($_SESSION['isconnected'])){
+	$_SESSION['isconnected'] = false;
+}
+if (isset($get['logout']) && $_SESSION['isconnected']) {
+	$_SESSION = array('isconnected' => false);
+}
 
 $error = array();
 $errorForm = false;
@@ -26,7 +34,7 @@ if (!empty($post)) {
 		$errorForm = true;
 	}
 	else {
-		$req = $pdo_database->prepare('SELECT * FROM users WHERE email = :login LIMIT 1')
+		$req = $pdo_database->prepare('SELECT * FROM users WHERE email = :login LIMIT 1');
 		$req->bindValue(':login', $post['email']);
 
 		if ($req->execute()) {
@@ -36,14 +44,27 @@ if (!empty($post)) {
 				$error[] = 'Adresse email invalide';
 			}
 			elseif (password_verify($post['password'], $user['password'])) {
-				$_SESSION = array(
-					'isconnected'   =>  true,
-					'email'         => $user['eamil'],
-					'username'      => $user['username']
-					);
+				$req = $pdo_database->prepare('SELECT role FROM roles WHERE id_user = :id');
+				$req->bindValue(':id', $user['id']);
+				$req->execute();
+				$role = $req->fetch();
+				if ($role == false) {
+					$error[] = 'Erreur de permission';
+				}
+				else {
+					$_SESSION = array(
+						'isconnected'   =>  true,
+						'email'         => $user['email'],
+						'username'      => $user['username'],
+						'role'          => $role['role']
+						);
+				}
+
+
+
 			}
 			else {
-				$error[] = 'Mot de passe incorrecte';
+				$error[] = 'Mot de passe incorrect';
 			}
 		}
 	}
@@ -61,6 +82,7 @@ if (!empty($post)) {
 	<meta charset="utf-8";>
 </head>
 <body>
+<?php if ($_SESSION['isconnected'] == false): ?>
 	<form method="POST">
 		<label for="email">Email</label>
 		<input type="email" name="email" id="email">
@@ -71,6 +93,12 @@ if (!empty($post)) {
 		<input type="submit" value="Se connecter">
 
 	</form>
+<?php elseif (isset($get['logout']) && $_SESSION['isconnected']): ?>
+	<p>Vous avez été déconnecté.</p>
+<?php else: 
+	header('Location: actualites.php');
+	die;
+endif; ?>
 
 </body>
 </html>

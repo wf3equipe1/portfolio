@@ -15,10 +15,14 @@ $valideForm = false;
 
 	// TRAITEMENT DU FORMULAIRE
 if (!empty($post)) {
-	
-	if (empty($post['pseudo'])) {
+	if(isset($post['pseudo'])){
+		if (empty($post['pseudo'])) {
+			$error[] = 'Le champ pseudo ne doit pas être vide';
+		}
+	} else {
 		$error[] = 'Le champ pseudo ne doit pas être vide';
 	}
+
 
 	if (empty($post['email'])) {
 		$error[] = 'Le champ email ne doit pas être vide';
@@ -34,22 +38,39 @@ if (!empty($post)) {
 	if ($post['password'] != $post['password2']) {
 		$error[] = 'Les deux mots de passe doivent être identique';
 	}
-		
-	if (count($error) > 0 ) {
-		$errorForm = true;
+
+	if (isset($post['role'])) {
+		if (!($post['role'] == 'admin' || $post['role'] == 'editor')) {
+			$error[] = 'Role incorrect';
+		}
+	} else {
+		$error[] = 'Role incorrect';
 	}
+		
 	 // Insertion dans la base de donnée si il n'y a pas d'erreur
-	else {
+	if(count($error) == 0) {
 		$insertuser = $pdo_database->prepare('INSERT INTO users(email, password, username) VALUES(:email, :password, :username)');
 		$insertuser->bindValue(':email', $post['email'], PDO::PARAM_STR);
 		$insertuser->bindValue(':password', password_hash($post['password'], PASSWORD_DEFAULT), PDO::PARAM_STR);
 		$insertuser->bindValue(':username', $post['pseudo'], PDO::PARAM_STR);
 
 		if ($insertuser->execute()) {
-			$valideForm = true;
+			$insertrole =$pdo_database->prepare('INSERT INTO roles(role, id_user) VALUES(:role, :id)');
+			$insertrole->bindValue(':role',$post['role']);
+			$insertrole->bindValue(':id', $pdo_database->lastInsertId(), PDO::PARAM_INT);
+			if ($insertrole->execute()) {
+				$valideForm = true;
+			} else {
+				$error[] = "Erreur base de donnée.";
+			}
+		} else {
+			$error[] = "L'email est déjà utilisée.";
 		}
-
 	}
+
+	if (count($error) > 0 ) {
+		$errorForm = true;
+	}	
 
 
 }
@@ -68,10 +89,9 @@ if (!empty($post)) {
 	// Affichage des erreurs
 	if ($errorForm) {
 		echo '<p style="color:red">'.implode('<br>', $error).'</p>';
-	}
-
+	} 
 	// Message de succès
-	if ($valideForm) {
+	elseif ($valideForm) {
 		echo '<p style="color:green">Le compte a bien été crée</p>';
 	}
 ?>
@@ -89,6 +109,11 @@ if (!empty($post)) {
 		<br>
 		<label for="password2">Confirmation mot de passe</label>
 		<input type="password" name="password2" id="password2">
+		<label for="role">Role</label>
+		<select name="role" id="role">
+			<option value="admin">Admin</option>
+			<option value="editor">Editeur</option>
+		</select>
 		<input type="submit" value="Envoyer">
 	</form>	
 
