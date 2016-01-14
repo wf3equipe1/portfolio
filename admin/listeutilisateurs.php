@@ -27,12 +27,12 @@ if ($_SESSION['isconnected'] == false) {
 	
 <h2>Liste utilisateurs:</h2>
 <?php 
-echo '<ul>';
-foreach ($result as $value) {
+
 	$requete=$pdo_database->prepare('SELECT * FROM users');
 	$requete->execute();
-	$resultat=$requete->fetch(PDO::FETCH_ASSOC);
-
+	$result=$requete->fetchAll(PDO::FETCH_ASSOC);
+echo '<ul>';
+foreach ($result as $value) {
 	echo '<li>'.$value['username'].'</li>';	
 }
 echo '</ul>';

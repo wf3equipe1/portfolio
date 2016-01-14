@@ -82,6 +82,7 @@ main
 	color: #3EA4E8;
 	text-decoration: none;
 	padding: 5px;
+	background-color: ; 
 	border-left: 4px solid transparent;
 }
 #leftSide nav ul li a:hover
