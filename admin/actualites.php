@@ -45,7 +45,8 @@ foreach ($resultat as $val){
 	echo '<article>';
 	echo '<h3>'.$val['title'].'</h3>';
 	echo '<p>'.nl2br($val['content']).'</p><br>';
-	echo '<em>Ecrit par: '.$resultatId['username'].' le '.$val['date'].'</em>';
+    $date = date('d/m/Y à H:i', strtotime($val['date']));
+	echo '<em>Ecrit par: '.$resultatId['username'].' le '.$date.'</em>';
     echo '<p><a href="actualites.php?modify='.$val['id'].'">Modifier</a></p>';
 	echo '</article><hr />';
 }
