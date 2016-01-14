@@ -13,7 +13,7 @@
 ?>
 <section id="leftSide">
 	<header>
-		<a href="index.php"><img src="<?php echo $donnee['main_image']; ?>" alt="clientPicture"></a>
+		<a href="index.php"><img src="<?php echo $donnee['avatar']; ?>" alt="clientPicture"></a>
 		<ul>
 			<?php 
 			if(!empty($donnee['lastname']) && !empty($donnee['firstname'])){

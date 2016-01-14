@@ -1,9 +1,25 @@
 <?php//Page d'accueil du site
 session_start();
-require_once'composants/db.php';
-// Titre
-// Photo de couverture
-// Affichage des news
+require_once'composants/db.php'; 
+
+
+//REQUETE POUR table OPTIONS
+$req=$pdo_database->prepare('SELECT * FROM options');
+	$req->execute();
+	$result=$req->fetchAll(PDO::FETCH_ASSOC);
+
+	$donnee=array();//variable pour recuperer les value des champs
+
+	foreach ($result as $value) {
+		$donnee[$value['data']] = $value['value'];//chaque dat donne une value
+	}
+
+//REQUETE POUR table ARTICLES
+
+
+
+
+
  ?>
 
  <!DOCTYPE html>
@@ -20,7 +36,7 @@ require_once'composants/db.php';
 
 	 	<section id="rightSide">
 	 		<h1>Titre Portfolio</h1>
-	 		<img src="images/cover_exemple.jpg" alt="couverture" id="cover">
+	 		<img src="<?php echo $donnee['main_image']; ?>" alt="couverture" id="cover">
 	 		<div id="blocNews">
 	 			<h2>Les news</h2>
 				<article>
