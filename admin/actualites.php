@@ -12,19 +12,26 @@ if(!isset($_SESSION['isconnected'])){
 	$_SESSION['isconnected'] = false;
 }
 
-if ($_SESSION['isconnected'] == false) {
+if ($_SESSION['isconnected'] == false):
 	header('Location: index.php');
 	die;
-} else {
-    include_once '../composants/barreadmin.php';
-}
-?>
-
-
+else: ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Gestion des actualités</title>
+        <link rel="stylesheet" href="../css/admin.css">
+    </head>
+    <body>
 <?php
-//A faire => page suivante
-//REQUETE POUR table ARTICLES
+include_once '../composants/barreadmin.php';
+endif;
+
+$offset = 0;
+//Affichge des articles
 $requete=$pdo_database->prepare('SELECT * FROM articles ORDER BY date DESC LIMIT 10 OFFSET :offset');
+$requete->bindValue(':offset', $offset, PDO::PARAM_INT);
 $requete->execute();
 $resultat=$requete->fetchAll(PDO::FETCH_ASSOC);
 
@@ -38,7 +45,11 @@ foreach ($resultat as $val){
 	echo '<article>';
 	echo '<h3>'.$val['title'].'</h3>';
 	echo '<p>'.nl2br($val['content']).'</p><br>';
-	echo '<em>ecrit par '.$resultatId['username'].'<em>';
-	echo '</article>';
+	echo '<em>Ecrit par: '.$resultatId['username'].' le '.$val['date'].'</em>';
+    echo '<p><a href="actualites.php?modify='.$val['id'].'">Modifier</a></p>';
+	echo '</article><hr />';
 }
 ?>
+
+</body>
+</html>

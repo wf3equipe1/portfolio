@@ -108,6 +108,7 @@ if (!empty($post)) {
     <?php endif; ?>
 <?php elseif (isset($get['logout']) && $_SESSION['isconnected']): ?>
 	<p>Vous avez été déconnecté.</p>
+    <p><a href="../index.php">Accueil</a></p>
 <?php else:
 	header('Location: actualites.php');
 	die;
