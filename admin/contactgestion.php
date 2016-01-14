@@ -38,7 +38,7 @@ if (isset($get['page'])) {
 	}
 
 	 // Requète avec l'ordre décroissant par date et limité à 10 par page
-	$req = $pdo_database->prepare('SELECT * FROM contact ORDER BY date DESC LIMIT 10');
+	$req = $pdo_database->prepare('SELECT * FROM contact ORDER BY date DESC LIMIT 10 OFFSET :offset');
 	$req->bindValue(':offset', $offset, PDO::PARAM_INT);
 	if ($req->execute()) {
 		$message = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -67,25 +67,28 @@ if (isset($get['page'])) {
 <?php
 
 foreach ($message as $value) {
-	$date = date(' \Le\ d/m/Y \à\ H:i', strtotime($value['date']));
-	if ($message['checked']) {
+	$date = 'Le '.date('d/m/Y \à\ H:i', strtotime($value['date']));
+	if ($value['checked']) {
 		echo '<div class="lu">'; // Classe pour les message lu
 	} else  {
 		echo '<div>'; 
 	}
+	echo '<p>'.$value['id'].'</p>';
 	echo '<p>'.$date.'</p>';
 	echo '<p>'.$value['email'].'</p>';
 	echo '<p>'.$value['subject'].'</p>';
 	echo '<p>'.nl2br($value['message']).'</p>';
 	echo '</div>';
+	echo '<hr />';
 }
 if ($offset > 0 ) {
 	$prev = $get['page'] - 1;
 	echo '<p><a href="contactgestion.php?page='.$prev.'">Page précédente</a></p>';
-	$next = $get['page'] + 1;
-	echo '<p><a href="contactgestion.php?page='.$next.'">Page suivante</a></p>';
 }
-elseif (count($error) > 0) {
+$next = $get['page'] + 1;
+echo '<p><a href="contactgestion.php?page='.$next.'">Page suivante</a></p>';
+
+if (count($error) > 0) {
 	echo '<p>'.implode(' ', $error).'</p>';
 
 	echo '<br/><a href="contactgestion.php">Retour</a>';
