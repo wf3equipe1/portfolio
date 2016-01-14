@@ -21,6 +21,12 @@ if (isset($get['logout']) && $_SESSION['isconnected']) {
     header('Location: index.php');
 }
 
+if (isset($get['demandetoken'])){
+    $creation_token = true;
+} else {
+    $creation_token = false;
+}
+
 $error = array();
 $errorForm = false;
 $valideForm = false;
@@ -87,7 +93,15 @@ if (!empty($post)) {
 </head>
 <body>
 <?php if ($_SESSION['isconnected'] == false): ?>
-    <?php if(count($error) == 0): ?>
+    <?php if($creation_token): ?>
+    <form method="GET" action="index.php">
+        <input type="hidden" name="create_token">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email">
+        <br>
+        <input type="submit" value="Mot de passe oublié">
+    </form>
+    <?php elseif(count($error) == 0): ?>
 	<form id="loginform" method="POST">
 		<label for="email">Email</label>
 		<input type="email" name="email" id="email">
@@ -96,8 +110,8 @@ if (!empty($post)) {
 		<input type="password" name="password" id="password">
 		
 		<input type="submit" value="Se connecter">
-
 	</form>
+    <p><a href="index.php?demandetoken">Mot de passe oublié</a></p>
     <?php else: ?>
     <p><?= implode(' ', $error); ?></p>
     <p><a href="index.php">Retour</a></p>
