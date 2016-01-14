@@ -75,7 +75,7 @@ if(isset($get['page'])){
             <?php endforeach;?>
             </div>
             <?php elseif(count($errors)>0): ?>
-            <div id="blocNews">
+            <div id="blocErreur">
 
                 <p><?= implode(' ', $errors) ?></p>
                 <a href="actualites.php">Retour</a>
