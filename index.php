@@ -38,13 +38,11 @@ $resultat=$requete->fetchAll(PDO::FETCH_ASSOC);
 	 			<h2>Les news</h2>
 				<?php  
 				foreach ($resultat as $val){
-					echo '<div  class="posts">';
 					echo '<article>';
 					echo '<h3>'.$val['title'].'</h3>';
 					echo '<p>'.substr($val['content'],0,200).'</p><br>';
 					echo '<a href="actualites.php?id='.$val['id'].'">Suite...</a>';//ENVOI A LA PAGE DE VISUALISATION par id puis GETdans l'autre page
 					echo '</article>';
-					echo '</div>';
 				}
 				?>
 	 		</div>
