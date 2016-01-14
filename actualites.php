@@ -11,18 +11,26 @@ $get = array_map('cleandata', $_GET);
 $errors = array();
 $validArticles = false;
 
-if(count($get)==0){
-    $get['page'] = 0;
+if(!isset($get['page'])){
+    $get['page'] = 1;
 }
 
 if(isset($get['page'])){
     if(is_numeric($get['page'])){
-        $offset = $get['page'] * 10;
+        if($get['page'] == 0){
+            $get['page'] = 1;
+        }
+        $offset = ($get['page'] * 10) - 10;
     } else {
         $offset = 0;
     }
 
-    $req = $pdo_database->prepare('SELECT * FROM articles ORDER BY date DESC LIMIT 10 OFFSET :offset');
+    if(isset($get['search'])){
+        $req = $pdo_database->prepare('SELECT * FROM articles WHERE content LIKE :recherche ORDER BY date DESC LIMIT 10 OFFSET :offset');
+        $req->bindValue(':recherche', '%'.$get['search'].'%', PDO::PARAM_STR);
+    } else {
+        $req = $pdo_database->prepare('SELECT * FROM articles ORDER BY date DESC LIMIT 10 OFFSET :offset');
+    }
     $req->bindValue(':offset', $offset, PDO::PARAM_INT);
     if($req->execute()){
         $articles = $req->fetchAll();
@@ -57,27 +65,56 @@ if(isset($get['page'])){
         <section id="rightSide">
         <?php if($validArticles): ?>
             <div id="blocNews">
-            <?php foreach($articles as $article): ?>
+                <div class="recherche">
+                    <form method="get">
+                        <?php
+                            if(isset($get['search'])){
+                                $placeholder_search = $get['search'];
+                            } else {
+                                $placeholder_search = '';
+                            }
+
+                         ?>
+                        <input type="text" id="search" name="search" placeholder="Recherche" value="<?=$placeholder_search ?>">
+                        <input type="submit" value="Rechercher">
+                    </form>
+                </div>
+                <?php foreach($articles as $article): ?>
                 <article>
                     <h3><?= $article['title']?></h3>
-                    <p><?= $article['content']?></p>
+                    <?php
+                        if(isset($get['search'])){
+                            echo '<p>'.preg_replace('/'.$get["search"].'/i', '<strong style="color:red;">$0</strong>' , nl2br($article["content"])).'</p>';
+                        } else {
+                            echo '<p>'.nl2br($article['content']).'</p>';
+                        }
+                     ?>
+
                 </article>
+                <?php endforeach;?>
                 <?php
                     if($offset>0){
-                        echo '<a href="actualites.php?page=';
-                        echo $offset-1;
-                        echo '">Page précédente</a>';
+                        $prev = $get['page'] - 1;
+                        if(isset($get['search'])){
+                            echo '<p><a href="actualites.php?page='.$prev.'&search='.$get['search'].'">Page précédente</a></p>';
+                        } else {
+                            echo '<p><a href="actualites.php?page='.$prev.'">Page précédente</a></p>';
+                        }
                     }
-                    echo '<a href="actualites.php?page=';
-                    echo $offset+1;
-                    echo '">Page suivante</a>';
+                    $next = $get['page'] + 1;
+                    if(isset($get['search'])){
+                        echo '<p><a href="actualites.php?page='.$next.'&search='.$get['search'].'">Page suivante</a></p>';
+                    } else {
+                        echo '<p><a href="actualites.php?page='.$next.'">Page suivante</a></p>';
+                    }
+
                  ?>
-            <?php endforeach;?>
             </div>
             <?php elseif(count($errors)>0): ?>
-            <div id="blocErreur">
+            <div id="blocNews">
 
                 <p><?= implode(' ', $errors) ?></p>
+                <br />
                 <a href="actualites.php">Retour</a>
             </div>
             <?php endif; ?>

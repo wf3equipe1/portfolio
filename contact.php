@@ -65,16 +65,18 @@ if (!empty($_POST) && isset($_POST)){
 
 		?>
 		<section id="rightSide">
+            <div id="blocNews">
 			<form method="post">
-				<label for="email">Email :</label>
-				<input type="text" id="email" name="email" placeholder="votre email">
-				<label for="sujet">Sujet :</label>
-				<input type="text" id="sujet" name="sujet" placeholder="sujet du message">
-				<label for="message">Message :</label>
-				<textarea id="message" name="message" placeholder="votre message ici..."></textarea>
-				<input type="submit" value="Envoyer votre Message">		
+				<label for="email">Email :</label><br />
+				<input type="text" id="email" name="email" placeholder="votre email"><br />
+				<label for="sujet">Sujet :</label><br />
+				<input type="text" id="sujet" name="sujet" placeholder="sujet du message"><br />
+				<label for="message">Message :</label><br />
+				<textarea id="message" name="message" rows="20" cols="70" placeholder="votre message ici..."></textarea><br />
+				<input type="submit" value="Envoyer votre Message">
 
 			</form>
+            </div>
 		</section>
 	</main>
 </body>
