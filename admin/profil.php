@@ -24,7 +24,7 @@ $formValid = false;
 
 if (!empty($_POST) && isset($_POST)) {
 
-	$post = array_map('cleandata', $_POST); // spéciale Manu (suite)
+	$post = array_map('cleandata', $_POST); 
 
 	if (empty($post['nom'])) {
 		$error[] = 'Veuillez saisir un nom';
@@ -43,6 +43,10 @@ if (!empty($_POST) && isset($_POST)) {
 
 	if (empty($post['telephone'])) {
 		$error[] = 'Veuillez saisir un numéro de téléphone';
+	}
+
+	if (empty($post['avatar'])) {
+		$error[] = 'Veuillez saisir une URL d\'avatar';
 	}
 
 	if (empty($post['image'])) {
@@ -79,6 +83,13 @@ if (!empty($_POST) && isset($_POST)) {
 		if($req->execute() == false){
 			$error[] = 'Erreur base de donnée.';
 		}
+
+			$req = $pdo_database->prepare('UPDATE options SET value = :avatar WHERE data = \'avatar\'');
+		$req->bindValue(':avatar', $post['avatar'], PDO::PARAM_STR);
+		if($req->execute() == false){
+			$error[] = 'Erreur base de donnée.';
+		}
+
 
 		$req = $pdo_database->prepare('UPDATE options SET value = :main_image WHERE data = \'main_image\'');
 		$req->bindValue(':main_image', $post['image'], PDO::PARAM_STR);
@@ -128,19 +139,22 @@ foreach ($req->fetchAll() as $elements) {
 		<h1>Modifier les Options Client</h1>
 		<label for="nom">Nom</label>
 		<input type="text" name="nom" id="nom" value="<?php echo $donnees['lastname']?>">
-		<br>
+		
 		<label for="prenom">Prénom</label>
 		<input type="text" name="prenom" id="prenom" value="<?php echo $donnees['firstname']?>">
-		<br>
+		
 		<label for="email">Email</label>
 		<input type="text" name="email" id="email" value="<?php echo $donnees['email']?>">
-		<br>
+		
 		<label for="telephone">Téléphone</label>
 		<input type="text" name="telephone" id="telephone" value="<?php echo $donnees['phone']?>">
-		<br>
+
+		<label for="avatar">URL de l'image</label>
+		<input type="text" name="avatar" id="avatar" value="<?php echo $donnees['avatar']?>">
+		
 		<label for="image">URL de l'image</label>
 		<input type="text" name="image" id="image" value="<?php echo $donnees['main_image']?>">
-		<br>		
+				
 		<input type="submit" value="Mettre à jour">
 	</form>	
 
