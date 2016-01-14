@@ -10,7 +10,7 @@ $error = array();
 $formValid = false;
 $errorForm = false;
 
-if (!empty($_POST) && isset($_POST)){
+if (!empty($_POST)){
 	$post = array_map('cleandata', $_POST);
 
 	if(empty($post['email'])){
@@ -25,16 +25,20 @@ if (!empty($_POST) && isset($_POST)){
 	if (empty($post['message'])){
 		$error[] = 'Veuillez entrer le message';
 	}
-
-	if(count($error > 0)){
+	if(count($error) > 0){
 		$errorForm = true;
 	}else{
-		$formValid = true;
-		$req = $pdo_database('INSERT INTO contact (email, subject, message, date, checked) VALUES (:email, :sujet, :message, NOW()), false');
+		$req = $pdo_database->prepare('INSERT INTO contact (email, subject, message, date, checked) VALUES (:email, :sujet, :message, NOW(), FALSE)');
 		$req->bindValue(':email', $post['email']);
 		$req->bindValue(':sujet', $post['sujet']);
 		$req->bindValue(':message', $post['message']);
-		$req->execute();
+		if($req->execute()){			
+			$formValid = true;
+		}else{
+			var_dump($req->errorInfo());
+			$error[] = 'Erreur base de données';
+		}
+
 	}
 }
 
@@ -52,19 +56,17 @@ if (!empty($_POST) && isset($_POST)){
 </head>
 <body>
 	<main>
+		<?php include_once 'composants/menugauche.php'; ?>
+		<section id="rightSide">
 		<?php
-
-		include_once 'composants/menugauche.php';
-
-		if ($errorForm == true){
+		if (count($error)>0){
 			echo '<p style="color: red">'.implode('<br>', $error).'</p>';
 		}
-		else if($formValid == true){
+		else if($formValid){
 			echo '<p style="color: green">Votre message a été envoyé avec succès</p>';
 		}
 
 		?>
-		<section id="rightSide">
             <div id="blocNews">
 			<form method="post">
 				<label for="email">Email :</label><br />

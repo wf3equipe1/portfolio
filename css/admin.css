@@ -3,6 +3,7 @@
 
 
 /* __________________GLOBAL_____________________ */
+
 html
 {
 	height: 100%;
@@ -16,3 +17,45 @@ body
 	width: 100%;
 	margin: 0 auto;
 }
+
+
+/* __________BARRE____________ */
+
+header {
+	background-color: #595E4B;
+	color: white;
+}
+
+header::after{
+	content:"";
+	display: block;
+	clear: both;
+}
+
+header div{
+	
+}
+
+header p{
+	margin: 0 auto;
+	padding: 40px 0;
+	font-size: 20px;
+	text-align: center;
+}
+header p span{
+	font-weight: 700;
+	color: yellow;
+}
+
+nav ul li a{
+	text-decoration: none;
+	text-transform: uppercase;
+	color: white;
+}
+
+nav ul li a:hover{
+	background_color: white;
+	color: black; 
+}
+
+
