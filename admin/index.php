@@ -17,6 +17,8 @@ if(!isset($_SESSION['isconnected'])){
 //Déconnexion de l'utilisateur.
 if (isset($get['logout']) && $_SESSION['isconnected']) {
 	$_SESSION = array('isconnected' => false);
+} elseif (isset($get['logout'])) {
+    header('Location: index.php');
 }
 
 $error = array();
@@ -42,7 +44,10 @@ if (!empty($post)) {
 	}
 	else {
     //Verification de l'existance de l'utilisateur
-		$req = $pdo_database->prepare('SELECT * FROM users WHERE email = :login LIMIT 1');
+        //REQUETE DE JOINTURE:
+        //u = table users, r = table roles
+        //On ajoute le champ role de la table roles au résultat de la requête pour là où roles.id_user = users.id
+		$req = $pdo_database->prepare('SELECT u.*, r.role FROM users AS u LEFT JOIN roles AS r ON r.id_user = u.id WHERE u.email = :login LIMIT 1');
 		$req->bindValue(':login', $post['email']);
 
 		if ($req->execute()) {
@@ -53,24 +58,15 @@ if (!empty($post)) {
 			}
       //Verification du mot de passe:
 			elseif (password_verify($post['password'], $user['password'])) {
-        //Récupération des droits de l'utilisateur
-				$req = $pdo_database->prepare('SELECT role FROM roles WHERE id_user = :id');
-				$req->bindValue(':id', $user['id']);
-				$req->execute();
-				$role = $req->fetch();
-        //Si aucun droit ne correspond a l'utilisateur
-				if ($role == false) {
-					$error[] = 'Erreur de permission';
-				}
-				else {
-					$_SESSION = array(
-						'isconnected'   =>  true,
-            			'user_id'       => $user['id'],
-						'email'         => $user['email'],
-						'username'      => $user['username'],
-						'role'          => $role['role']
-						);
-				}
+
+        //Création de la session
+				$_SESSION = array(
+					'isconnected'   =>  true,
+        			'user_id'       => $user['id'],
+					'email'         => $user['email'],
+					'username'      => $user['username'],
+					'role'          => $user['role']
+					);
 
 			}
 			else {
