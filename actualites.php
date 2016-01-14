@@ -6,15 +6,18 @@ function cleandata($data){
     return trim(htmlentities($data));
 }
 
+//Clean des input $_GET
 $get = array_map('cleandata', $_GET);
 
 $errors = array();
 $validArticles = false;
 
+//Page 1 par défaut.
 if(!isset($get['page'])){
     $get['page'] = 1;
 }
 
+//Validation de l'input de page
 if(isset($get['page'])){
     if(is_numeric($get['page'])){
         if($get['page'] == 0){
@@ -25,10 +28,12 @@ if(isset($get['page'])){
         $offset = 0;
     }
 
+    //Requête spécifique a la recherche
     if(isset($get['search'])){
         $req = $pdo_database->prepare('SELECT * FROM articles WHERE content LIKE :recherche ORDER BY date DESC LIMIT 10 OFFSET :offset');
         $req->bindValue(':recherche', '%'.$get['search'].'%', PDO::PARAM_STR);
     } else {
+        //Requête sans la recherche
         $req = $pdo_database->prepare('SELECT * FROM articles ORDER BY date DESC LIMIT 10 OFFSET :offset');
     }
     $req->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -43,11 +48,6 @@ if(isset($get['page'])){
         $errors[] = 'Erreur avec la base de donnée.';
     }
 }
-
-
-
-
-
 
 ?>
 
@@ -68,6 +68,7 @@ if(isset($get['page'])){
                 <div class="recherche">
                     <form method="get">
                         <?php
+                            //Sauvegarde la recherche de l'utilisateur quand on affiche le résultat
                             if(isset($get['search'])){
                                 $placeholder_search = $get['search'];
                             } else {
@@ -92,19 +93,19 @@ if(isset($get['page'])){
 
                 </article>
                 <?php endforeach;?>
-                <?php
+                <?php //Création des liens page suivante et page précédente.
                     if($offset>0){
                         $prev = $get['page'] - 1;
-                        if(isset($get['search'])){
+                        if(isset($get['search'])){ //Lien avec paramètre de recherche
                             echo '<p><a href="actualites.php?page='.$prev.'&search='.$get['search'].'">Page précédente</a></p>';
-                        } else {
+                        } else { //Lien sans paramètre de recherche
                             echo '<p><a href="actualites.php?page='.$prev.'">Page précédente</a></p>';
                         }
                     }
                     $next = $get['page'] + 1;
-                    if(isset($get['search'])){
+                    if(isset($get['search'])){ //Lien avec paramètre de recherche
                         echo '<p><a href="actualites.php?page='.$next.'&search='.$get['search'].'">Page suivante</a></p>';
-                    } else {
+                    } else { //Lien sans paramètre de recherche
                         echo '<p><a href="actualites.php?page='.$next.'">Page suivante</a></p>';
                     }
 
@@ -112,7 +113,6 @@ if(isset($get['page'])){
             </div>
             <?php elseif(count($errors)>0): ?>
             <div id="blocNews">
-
                 <p><?= implode(' ', $errors) ?></p>
                 <br />
                 <a href="actualites.php">Retour</a>
