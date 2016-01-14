@@ -32,11 +32,11 @@ $resultat=$requete->fetchAll(PDO::FETCH_ASSOC);
 	 	<?php include_once 'composants/menugauche.php'; //MENU DE GAUCHE?>
 
 	 	<section id="rightSide">
-	 		<h1>Titre Portfolio</h1>
+	 		<h1><?= $donnee['title']; ?></h1>
 	 		<img src="<?php echo $donnee['main_image']; ?>" alt="couverture" id="cover">
 	 		<div id="blocNews">
 	 			<h2>Les news</h2>
-				<?php  
+				<?php
 				foreach ($resultat as $val){
 					echo '<article>';
 					echo '<h3>'.$val['title'].'</h3>';
