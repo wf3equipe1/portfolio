@@ -122,13 +122,13 @@ if (!empty($post)) {
 	<form method="POST">
 		<label for="pseudo">Pseudo</label>
 		<input type="text" name="pseudo" id="pseudo" placeholder="Votre pseudo">
-		<br>
+		
 		<label for="email">Email</label>
 		<input type="email" name="email" id="email" placeholder="votre@email.fr">
-		<br>
+		
 		<label for="password">Mot de passe</label>
 		<input type="password" name="password" id="password">
-		<br>
+		
 		<label for="password2">Confirmation mot de passe</label>
 		<input type="password" name="password2" id="password2">
 		<label for="role">Role</label>

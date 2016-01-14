@@ -1,0 +1,18 @@
+@import url('reset.css');
+@import url('normalize.css');
+
+
+/* __________________GLOBAL_____________________ */
+html
+{
+	height: 100%;
+}
+body
+{
+	font-family: arial, sans-serif;
+	height: 100%;
+	background-color: aliceblue;
+	max-width: 900px;
+	width: 100%;
+	margin: 0 auto;
+}

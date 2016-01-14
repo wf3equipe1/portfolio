@@ -63,9 +63,15 @@ if (!empty($post)) {
 <head>
 	<title>Nouvelle actualité</title>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
-<?php 
+<?php
+	// barre de tache admin/user
+
+	include_once '../composants/barreadmin.php';
+
+
 	// Affichage des erreurs
 	if ($errorForm) {
 		echo '<p style="color:red">'.implode('<br>', $error).'</p>';
@@ -80,10 +86,10 @@ if (!empty($post)) {
 	<form method="POST">
 		<label for="titre">Titre</label>
 		<input type="text" name="titre" id="titre">	
-		<br>
+		
 		<label>Contenu</label>
 		<textarea name="contenu" id="contenu"></textarea>
-		<br>
+		
 		<input type="submit" value="Publier l'actualité">
 
 	</form>
