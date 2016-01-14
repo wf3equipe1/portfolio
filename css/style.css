@@ -25,10 +25,12 @@ main
 #leftSide
 {
 	width: 270px;
-	background-color: #DCDCDC;
+	background-color: #6dc5df;
 	float:left;
 	position: fixed;
 	height: 100%;
+	box-shadow: 2px 0 5px #999, -2px 0 5px #999;
+	background: linear-gradient(to bottom,#6dc5df 0%,#429fb8 100%);
 }
 
 #rightSide
@@ -37,6 +39,7 @@ main
 	float: right;
 	background-color: white;
 	min-height: 100%;
+	/* background: url('fond_noir.png'); */
 }
 
 
@@ -46,12 +49,12 @@ main
 #leftSide header
 {
 	text-align: center;
-	color: #3EA4E8;
+	color: white;
 }
 #leftSide header img
 {
 	margin-top: 30%;
-	border: 5px #3EA4E8 solid;
+	border: 2px white solid;
 	border-radius: 50%;
 	height: 150px;
 	width: 150px;
@@ -79,7 +82,7 @@ main
 }
 #leftSide nav ul li a
 {
-	color: #3EA4E8;
+	color: white;
 	text-decoration: none;
 	padding: 5px;
 	background-color: ; 
@@ -87,7 +90,7 @@ main
 }
 #leftSide nav ul li a:hover
 {
-	border-left: 4px solid #3EA4E8;
+	border-left: 4px solid white;
 	transition-property: border-left;
 	transition-duration: 0.5s;
 	transition-timing-fonction: linear;
@@ -119,13 +122,13 @@ main
 	margin-top: 20%;
 	margin-bottom: 10%;
 	font-size: 3em;
-	color: #3EA4E8;
+	color: #6dc5df;
 }
 #cover
 {
 	margin: 4%;
 	width: 90%;
-	border: 2px solid #3EA4E8;
+	border: 2px solid #6dc5df;
 	border-radius: 10px;
 }
 
@@ -138,20 +141,20 @@ main
 }
 #blocNews h2
 {
-	color: #3EA4E8;
+	color: #6dc5df;
 	font-size: 2em;
 }
 
 #blocNews a
 {
 	text-decoration: none;
-	color: #3EA4E8;
+	color: #6dc5df;
 	padding: 2px;
 }
 
 #blocNews h3
 {
-	color: #3EA4E8;
+	color: #6dc5df;
 	font-size: 1.5em;
 	margin-bottom: 10px;
 }
