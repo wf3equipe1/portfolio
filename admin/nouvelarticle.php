@@ -61,7 +61,7 @@ if (!empty($post)) {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<title>Gérer les actualités</title>
+	<title>Nouvelle actualité</title>
 	<meta charset="utf-8">
 </head>
 <body>

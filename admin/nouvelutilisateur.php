@@ -114,7 +114,7 @@ if (!empty($post)) {
 	}
 	// Message de succès
 	elseif ($valideForm) {
-		echo '<p style="color:green">Le compte a bien été crée</p>';
+		echo '<p style="color:green">Le compte a bien été créé</p>';
 	}
 ?>
 
