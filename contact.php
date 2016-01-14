@@ -35,7 +35,6 @@ if (!empty($_POST)){
 		if($req->execute()){			
 			$formValid = true;
 		}else{
-			var_dump($req->errorInfo());
 			$error[] = 'Erreur base de données';
 		}
 

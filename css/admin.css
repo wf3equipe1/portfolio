@@ -4,12 +4,11 @@
 
 /* __________________GLOBAL_____________________ */
 
-html
-{
+html{
 	height: 100%;
 }
-body
-{
+
+body{
 	font-family: arial, sans-serif;
 	height: 100%;
 	background-color: aliceblue;
@@ -33,18 +32,29 @@ header::after{
 }
 
 header div{
-	
+	width: 25%;
+	float: left;
 }
 
 header p{
 	margin: 0 auto;
-	padding: 40px 0;
-	font-size: 20px;
+	padding: 20px;
+	font-size: 16px;
 	text-align: center;
 }
 header p span{
 	font-weight: 700;
 	color: yellow;
+}
+
+header nav{
+	width: 70%;
+	float: right;
+}
+
+nav ul li{
+	display: inline-block;
+	
 }
 
 nav ul li a{
@@ -53,8 +63,7 @@ nav ul li a{
 	color: white;
 }
 
-nav ul li a:hover{
-	background_color: white;
+nav ul li a:hover{	
 	color: black; 
 }
 
