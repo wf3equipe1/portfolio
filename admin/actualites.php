@@ -51,6 +51,7 @@ foreach ($resultat as $val){
 	echo '</article><hr />';
 }
 ?>
+<p><a href="nouvelarticle.php">Nouvel article</a></p>
 
 </body>
 </html>

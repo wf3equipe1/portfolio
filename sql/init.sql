@@ -138,3 +138,13 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+INSERT INTO `options` (`id`, `data`, `value`) VALUES
+  (1, 'lastname', 'World'),
+  (2, 'firstname', 'Hello'),
+  (3, 'email', 'test@test.te'),
+  (4, 'phone', '0123456789'),
+  (5, 'avatar', 'images/picture_example.jpg'),
+  (6, 'title', 'Titre portfolio'),
+  (7, 'main_image', 'images/cover_example.jpg');
