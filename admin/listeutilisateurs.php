@@ -1,5 +1,3 @@
-<h2>Liste utilisateurs</h2>
-
 <?php
 session_start();
 require_once '../composants/db.php';
@@ -19,11 +17,25 @@ if ($_SESSION['isconnected'] == false) {
 	die;
 }
 ?>
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+<h2>Liste utilisateurs:</h2>
 <?php 
-$requete=$pdo_database->prepare('SELECT * FROM users WHERE ');
-$requete->execute();
-$resultat=$requete->fetchAll(PDO::FETCH_ASSOC);
+echo '<ul>';
+foreach ($result as $value) {
+	$requete=$pdo_database->prepare('SELECT * FROM users');
+	$requete->execute();
+	$resultat=$requete->fetch(PDO::FETCH_ASSOC);
 
-
+	echo '<li>'.$value['username'].'</li>';	
+}
+echo '</ul>';
 ?>
+</body>
+</html>
