@@ -14,7 +14,7 @@ $get = array_map('cleandata', $_GET);
 if(!isset($_SESSION['isconnected'])){
 	$_SESSION['isconnected'] = false;
 }
-//L'utilisateur est-il connecté.
+//Déconnexion de l'utilisateur.
 if (isset($get['logout']) && $_SESSION['isconnected']) {
 	$_SESSION = array('isconnected' => false);
 }
@@ -86,11 +86,13 @@ if (!empty($post)) {
 <html>
 <head>
 	<title>Connexion/deconnexion</title>
-	<meta charset="utf-8";>
+	<meta charset="utf-8">
+    <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
 <?php if ($_SESSION['isconnected'] == false): ?>
-	<form method="POST">
+    <?php if(count($error) == 0): ?>
+	<form id="loginform" method="POST">
 		<label for="email">Email</label>
 		<input type="email" name="email" id="email">
 		<br>
@@ -100,6 +102,10 @@ if (!empty($post)) {
 		<input type="submit" value="Se connecter">
 
 	</form>
+    <?php else: ?>
+    <p><?= implode(' ', $error); ?></p>
+    <p><a href="index.php">Retour</a></p>
+    <?php endif; ?>
 <?php elseif (isset($get['logout']) && $_SESSION['isconnected']): ?>
 	<p>Vous avez été déconnecté.</p>
 <?php else:

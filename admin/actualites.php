@@ -15,11 +15,13 @@ if(!isset($_SESSION['isconnected'])){
 if ($_SESSION['isconnected'] == false) {
 	header('Location: index.php');
 	die;
+} else {
+    include_once '../composants/barreadmin.php';
 }
 ?>
 
 
-<?php  
+<?php
 //A faire => page suivante
 //REQUETE POUR table ARTICLES
 $requete=$pdo_database->prepare('SELECT * FROM articles ORDER BY date DESC LIMIT 10 OFFSET :offset');
