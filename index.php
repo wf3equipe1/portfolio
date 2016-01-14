@@ -1,26 +1,23 @@
-<?php//Page d'accueil du site
+<?php //Page d'accueil du site
 session_start();
 require_once'composants/db.php'; 
-
-
 //REQUETE POUR table OPTIONS
 $req=$pdo_database->prepare('SELECT * FROM options');
-	$req->execute();
-	$result=$req->fetchAll(PDO::FETCH_ASSOC);
+$req->execute();
+$result=$req->fetchAll(PDO::FETCH_ASSOC);
 
-	$donnee=array();//variable pour recuperer les value des champs
+$donnee=array();//variable pour recuperer les value des champs
 
-	foreach ($result as $value) {
-		$donnee[$value['data']] = $value['value'];//chaque dat donne une value
-	}
+foreach ($result as $value) {
+	$donnee[$value['data']] = $value['value'];//chaque data donne une value
+}
 
 //REQUETE POUR table ARTICLES
+$requete=$pdo_database->prepare('SELECT * FROM articles ORDER BY date DESC LIMIT 3');
+$requete->execute();
+$resultat=$requete->fetchAll(PDO::FETCH_ASSOC);
 
-
-
-
-
- ?>
+?>
 
  <!DOCTYPE html>
  <html>
@@ -39,18 +36,17 @@ $req=$pdo_database->prepare('SELECT * FROM options');
 	 		<img src="<?php echo $donnee['main_image']; ?>" alt="couverture" id="cover">
 	 		<div id="blocNews">
 	 			<h2>Les news</h2>
-				<article>
-					<h3>titre1</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga maiores, placeat? Consequatur corporis possimus, consectetur ducimus veniam accusamus fugiat perspiciatis, sed nemo, nobis quam explicabo similique necessitatibus quasi ullam doloribus.</p>
-				</article>
-				<article>
-					<h3>titre2</h3>
-					<p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia atque maxime ipsam laudantium velit eligendi aut, qui commodi alias sed at ad eveniet aspernatur sapiente id, nobis voluptas distinctio quas!</span><span>Consectetur placeat recusandae ut consequuntur mollitia cupiditate dicta, ex at repellendus suscipit praesentium voluptatem illo! Ipsum iste quos accusantium quasi harum dicta dignissimos assumenda rerum, libero recusandae eligendi amet. Incidunt.</span></p>
-				</article>
-				<article>
-					<h3>titre3</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga maiores, placeat? Consequatur corporis possimus, consectetur ducimus veniam accusamus fugiat perspiciatis, sed nemo, nobis quam explicabo similique necessitatibus quasi ullam doloribus.</p>
-				</article>
+				<?php  
+				foreach ($resultat as $val){
+					echo '<div  class="posts">';
+					echo '<article>';
+					echo '<h2>'.$val['title'].'</h2>';
+					echo '<p>'.substr($val['content'],0,200).'</p>';
+					echo '<a href="actualites.php?id='.$val['id'].'">Suite...</a>';//ENVOI A LA PAGE DE VISUALISATION par id puis GETdans l'autre page
+					echo '</article>';		
+					echo '</div>';
+				}	
+				?>
 	 		</div>
 	 	</section>
 	 </main>
