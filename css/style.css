@@ -27,9 +27,8 @@ main
 	width: 270px;
 	background-color: #DCDCDC;
 	float:left;
-	position: fixed; 
+	position: fixed;
 	height: 100%;
-	min-height: 1100px;
 }
 
 #rightSide
@@ -37,7 +36,7 @@ main
 	width: 70%;
 	float: right;
 	background-color: white;
-	min-height: 1100px;
+	min-height: 100%;
 }
 
 
@@ -81,7 +80,7 @@ main
 {
 	text-align: center;
 }
-#leftSide nav ul li a 
+#leftSide nav ul li a
 {
 	color: #3EA4E8;
 	text-decoration: none;
