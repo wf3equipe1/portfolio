@@ -2,6 +2,16 @@
 session_start();
 require_once '../composants/db.php';
 
+
+if(!isset($_SESSION['isconnected'])){
+	$_SESSION['isconnected'] = false;
+}
+
+if ($_SESSION['isconnected'] == false) {
+	header('Location: index.php');
+	die;
+}
+
  // Nettoyage du formulaire
 function cleandata($data){
 	return trim(htmlentities($data));
@@ -19,32 +29,45 @@ if (!empty($post)) {
 		if (empty($post['pseudo'])) {
 			$error[] = 'Le champ pseudo ne doit pas être vide';
 		}
+		elseif (strlen($post['pseudo']) > 40) {
+			$error[] = 'Le pseudo ne doit pas dépasser 40 caractères';
+		}
 
-  	if (empty($post['email'])) {
-  		$error[] = 'Le champ email ne doit pas être vide';
-  	}
-  	elseif (!filter_var($post['email'], FILTER_VALIDATE_EMAIL)) {
-  		$error[] = 'La syntaxe de l\'email n\'est pas correcte';
-  	}
+	  	if (empty($post['email'])) {
+	  		$error[] = 'Le champ email ne doit pas être vide';
+	  	}
+	  	elseif (!filter_var($post['email'], FILTER_VALIDATE_EMAIL)) {
+	  		$error[] = 'La syntaxe de l\'email n\'est pas correcte';
+	  	}
+	  	elseif (strlen($post['email']) > 255) {
+	  		$error[] = 'L\'email ne doit pas dépasser 255 caractères';
+	  	}
 
-  	if (empty($post['password'])) {
-  		$error[] = 'Le champ mot de passe ne doit pas être vide';
-  	}
+	  	if (empty($post['password'])) {
+	  		$error[] = 'Le champ mot de passe ne doit pas être vide';
+	  	}
+	  	elseif (strlen($post['password']) > 255) {
+	  		$error[] = 'Le mot de passe ne doit pas dépasser 255 caractères';
+	  	}
 
-  	if ($post['password'] != $post['password2']) {
-  		$error[] = 'Les deux mots de passe doivent être identique';
-  	}
+	  	if (strlen($post['password2']) > 255) {
+	  		$error[] = 'Le mot de passe ne doit pas dépasser 255 caractères';
+	  	}
 
-  	if (isset($post['role'])) {
-  		if (!($post['role'] == 'admin' || $post['role'] == 'editor')) {
+	  	if ($post['password'] != $post['password2']) {
+	  		$error[] = 'Les deux mots de passe doivent être identique';
+	  	}
+
+	  	if (isset($post['role'])) {
+	  		if (!($post['role'] == 'admin' || $post['role'] == 'editor')) {
+	  			$error[] = 'Role incorrect';
+	  		}
+  	} else {
   			$error[] = 'Role incorrect';
   		}
-  	} else {
-  		$error[] = 'Role incorrect';
-  	}
   } else {
-    $error[] = 'Formulaire invalide.';
-  }
+   	 $error[] = 'Formulaire invalide.';
+  	}
 
 	 // Insertion dans la base de donnée si il n'y a pas d'erreur
 	if(count($error) == 0) {

@@ -6,8 +6,13 @@ function cleandata($data){
 	return trim(htmlentities($data));
 }
 
-if (!isset($_SESSION['isconnected'])) {
-	header('location : index.php');
+if(!isset($_SESSION['isconnected'])){
+	$_SESSION['isconnected'] = false;
+}
+
+if ($_SESSION['isconnected'] == false) {
+	header('Location: index.php');
+	die;
 }
 
 
