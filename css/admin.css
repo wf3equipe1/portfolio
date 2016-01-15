@@ -28,7 +28,7 @@ body{
 header {
 	background-color: grey;
 	color: white;
-	
+
 }
 
 header::after{
@@ -38,7 +38,7 @@ header::after{
 }
 
 header p{
-	padding: 12px 25px;	
+	padding: 12px 25px;
 	text-align: left;
 	border-bottom: 1px dotted black;
 }
@@ -54,7 +54,7 @@ header ul{
 nav ul li{
 	margin: 15px 0;
 	display: inline-block;
-	
+
 }
 
 nav ul li a{
@@ -64,8 +64,8 @@ nav ul li a{
 	color: white;
 }
 
-nav ul li a:hover{	
-	color: black; 
+nav ul li a:hover{
+	color: black;
 }
 
 /* CHAMPS */
@@ -83,7 +83,7 @@ form{
 label{
 	display: block;
 	margin: 15px 5px 0;
-		
+
 }
 
 input{
@@ -134,6 +134,34 @@ article a{
 	padding-right: 40px;
 }
 
+/* TABLEAU */
+
+table {
+    width: 100%;
+    max-width: 1080px;
+}
+
+td {
+    padding: 5px 15px;
+}
+
+thead tr{
+    background-color: #808080;
+    border-bottom: 1px solid black;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #DADADA;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #C3C3C3;
+}
+
+tbody tr:hover {
+    background-color: white;
+}
+
 /* PAGINATION */
 
 .lien{
@@ -147,12 +175,9 @@ article a{
 
 .pagination{
 	margin-top: 30px;
-	text-align: center;	
+	text-align: center;
 }
 
 .pagination a{
 	text-decoration: none;
 }
-
-
-
