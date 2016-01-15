@@ -41,13 +41,13 @@ $error = array();
 if (!empty($_POST) && isset($_POST)){
 	$post = array_map('cleandata', $_POST);
 
-	// vérification des champs 
+	// vérification des champs
 
-	if (empty($post['password']) && !isset($get['token'])){   
+	if (empty($post['password']) && !isset($get['token'])){
 		$error[] = 'Vous n\'avez pas saisi votre mot de passe';
 	} // inutile en mode oubli
 
-	if (empty($post['new1'])){                               
+	if (empty($post['new1'])){
 		$error[] = 'Veuillez saisir votre nouveau mot de passe';
 	}
 	else if (strlen($post['new1']) < 1){
@@ -61,7 +61,7 @@ if (!empty($_POST) && isset($_POST)){
 		$error[] = 'Confirmation de mot de passe incorrecte';
 	}
 
-	
+
 	if ($error > 0){
 		$errorForm = true;
 	}
@@ -98,7 +98,7 @@ if (!empty($_POST) && isset($_POST)){
 					$err[] = 'Erreur base dedonnée';
 				}
 			}
-			
+
 		}
 	}
 }
@@ -126,9 +126,9 @@ if (!empty($_POST) && isset($_POST)){
 ?>
 	<h1>Modifier votre Mot de Passe</h1>
 	<form method="post">
-		<?php 
-		if (!isset($_GET['token'])):?>		
-			<label for="motdepasse">Mot de passe actuel :</label>
+		<?php
+		if (!isset($_GET['token'])):?>
+			<label for="motdepasse"></label>
 			<input type="password" id="motdepasse" name="motdepasse" placeholder="">
 		<?php endif ?>
 			<label for="new1">Nouveau mot de passe :</label>
@@ -137,6 +137,6 @@ if (!empty($_POST) && isset($_POST)){
 			<input type="password" id="new2" name="new2" placeholder="">
 			<input type="submit" value="Modifier">
 	</form>
-	
+
 </body>
 </html>

@@ -35,11 +35,36 @@ include_once '../composants/barreadmin.php';
 
 //pagination
 //par defaut elle est a 1
-if(!isset($get['page'])){
+if(empty($get)){
 	$get['page']=1;
 }
 
-if(isset($get['page'])){
+if(isset($get['modify'])){
+    if(!is_numeric($get['modify'])){
+        unset($get['modify']);
+    } else {
+        if(!empty($post)){
+            //traitement du formulaire:
+            if(empty($post['title'])){
+                echo '<p>Le titre ne peut être vide.</p>';
+            } elseif(empty($post['content'])){
+                echo '<p>Le contenu ne peut être vide.</p>';
+            } else {
+                $req=$pdo_database->prepare('UPDATE articles SET title = :title, content = :content WHERE id = :id');
+                $req->bindValue(':title', $post['title']);
+                $req->bindValue(':content', $post['content']);
+                $req->bindValue(':id', $get['modify']);
+                if($req->execute()){
+                    echo '<p>Article modifié avec succes.</p>';
+                    unset($get['modify']);
+                }
+            }
+        }
+    }
+}
+
+
+if(isset($get['page'])):
     if(is_numeric($get['page'])){
         if($get['page'] == 0){
             $get['page'] = 1;
@@ -84,9 +109,28 @@ if(isset($get['page'])){
 		echo ' / ';
 		echo '<a href="actualites.php?page='.$next.'">Page suivante</a>';
 	}
-}
-?>
-<p><a href="nouvelarticle.php">Nouvel article</a></p>
+    echo '<p><a href="nouvelarticle.php">Nouvel article</a></p>';
+elseif(isset($get['modify'])):
+    $req=$pdo_database->prepare('SELECT * FROM articles WHERE id=:id');
+    $req->bindValue(':id', $get['modify'], PDO::PARAM_INT);
+    $req->execute();
+    $article = $req->fetch();
+    if($article != false):
+    ?>
+<form method="post">
+    <label for="title">Titre:</label>
+    <input type="text" name="title" id="title" value="<?=$article['title'] ?>"><br>
+    <label for="content">Contenu:</label><br>
+    <textarea cols="150" rows="20" name="content" id="content"><?=nl2br($article['content']) ?></textarea><br>
+    <input type="submit" value="Envoyer">
+</form>
+
+<?php
+    else:
+        echo '<p>Article introuvable</p>';
+    endif;
+endif; ?>
+
 
 </body>
 </html>

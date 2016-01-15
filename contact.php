@@ -56,7 +56,7 @@ if (!empty($_POST)){
 <body>
 	<main>
 		<?php include_once 'composants/menugauche.php'; ?>
-		<section id="rightSide">
+		<section id="rightSide" class="decalage">
 		<?php
 		if (count($error)>0){
 			echo '<p style="color: red">'.implode('<br>', $error).'</p>';
@@ -69,12 +69,12 @@ if (!empty($_POST)){
             <div id="blocNews">
 			<form method="post">
 				<label for="email">Email :</label><br />
-				<input type="text" id="email" name="email" placeholder="votre email"><br />
+				<input type="text" id="email" name="email" placeholder="votre email" class="champContact"><br />
 				<label for="sujet">Sujet :</label><br />
-				<input type="text" id="sujet" name="sujet" placeholder="sujet du message"><br />
+				<input type="text" id="sujet" name="sujet" placeholder="sujet du message" class="champContact"><br />
 				<label for="message">Message :</label><br />
 				<textarea id="message" name="message" rows="20" cols="70" placeholder="votre message ici..."></textarea><br />
-				<input type="submit" value="Envoyer votre Message">
+				<input type="submit" value="Envoyer votre Message" id="envoyerMessage">
 
 			</form>
             </div>

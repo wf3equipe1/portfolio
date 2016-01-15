@@ -24,6 +24,7 @@ $resultat=$requete->fetchAll(PDO::FETCH_ASSOC);
  <head>
  	<title>Page principale</title>
  	<meta charset="utf-8">
+ 	<link rel="stylesheet" href="css/flexslider.css" type="text/css">
  	<link rel="stylesheet" href="css/style.css">
  </head>
  <body>
@@ -32,7 +33,33 @@ $resultat=$requete->fetchAll(PDO::FETCH_ASSOC);
 
 	 	<section id="rightSide">
 	 		<h1><?= $donnee['title']; ?></h1>
-	 		<img src="<?php echo $donnee['main_image']; ?>" alt="couverture" id="cover">
+
+
+	 		<aside id="slideshow">
+			    <div class="container flexslider" id="cover">
+			        <!-- <figure>
+			            <img src="img/slide1.png" alt="design clean crisp memorable icons">
+			            <figcaption>We design clean, crisp & memorable icons</figcaption>
+			        </figure> -->
+			        <ul class="slides">
+			            <li><img src="http://www.louisetzeliemartin.org/medias/images/chat-1.jpg" alt=""></li>
+			            <li><img src="http://www.louisetzeliemartin.org/medias/images/chat.jpg" alt=""></li>
+			            <li><img src="http://media.virginradio.fr/article-2505914-fb-f1415609183/chat-mignon-petit-chaton-therapie-detente.jpg" alt=""></li>
+			            <li><img src="https://www.lepetiterudit.com/wp-content/uploads/2014/08/chat.jpg" alt=""></li>
+			        </ul>
+			        <!--
+			        <div class="points">
+			            <span></span>
+			            <span></span>
+			            <span></span>
+			            <span></span>
+			            <span></span>
+			        </div> -->
+			    </div>
+			</aside>
+
+
+
 	 		<div id="blocNews">
 	 			<h2>Les news</h2>
 				<?php
@@ -47,5 +74,9 @@ $resultat=$requete->fetchAll(PDO::FETCH_ASSOC);
 	 		</div>
 	 	</section>
 	 </main>
+
+	 <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+	 <script src="js/jquery.flexslider.js"></script>
+	 <script src="js/main.js"></script>
  </body>
  </html>
