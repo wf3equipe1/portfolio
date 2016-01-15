@@ -70,7 +70,7 @@ if(isset($get['page'])){
 <body>
     <main>
        <?php include_once 'composants/menugauche.php'; //MENU DE GAUCHE?>
-        <section id="rightSide">
+        <section id="rightSide" class="decalage">
         <?php if($validArticles): ?>
             <div id="blocNews">
                 <div class="recherche">
