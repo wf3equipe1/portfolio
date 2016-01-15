@@ -82,7 +82,7 @@ if (!empty($post)) {
 	}
 
 ?>
-
+	<h1>Créer un Nouvel Article</h1>
 	<form method="POST">
 		<label for="titre">Titre</label>
 		<input type="text" name="titre" id="titre">	

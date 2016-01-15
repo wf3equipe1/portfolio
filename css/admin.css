@@ -73,4 +73,25 @@ nav ul li a:hover{
 	color: black; 
 }
 
+/* CHAMPS */
+
+label{
+	display: block;
+	margin: 10px 5px 0;
+		
+}
+
+input{
+	display: block;
+	margin: 5px;
+}
+
+textarea{
+	margin: 5px;
+}
+
+select{
+	margin: 5px;
+}
+
 
