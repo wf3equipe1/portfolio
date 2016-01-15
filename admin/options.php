@@ -21,6 +21,9 @@ $error = array();
 $errorForm = false;
 $formValid = false;
 
+$mimeTypeAllowed= array('image/jpg', 'image/jpeg', 'image/png', 'image/gif'); //fichier possible
+$finfo = new finfo();
+
 
 if (!empty($_POST) && isset($_POST)) {
 
@@ -45,12 +48,53 @@ if (!empty($_POST) && isset($_POST)) {
 		$error[] = 'Veuillez saisir un numéro de téléphone';
 	}
 
-	if (empty($post['avatar'])) {
-		$error[] = 'Veuillez saisir une URL d\'avatar';
-	}
 
-	if (empty($post['image'])) {
-		$error[] = 'Veuillez saisir une URL d\'image';
+	//fichier image et avatar	
+	if(isset($_FILES['avatar'])){
+			$maxSize = 5*1000*1024; //5Mo
+
+			// On vérifie que le mime type soit le bon
+			$fileMimeType = $finfo->file($_FILES['avatar']['tmp_name'], FILEINFO_MIME_TYPE);
+			if(!in_array($fileMimeType, $mimeTypeAllowed)){ // 
+				$error[]= "Le fichier n'est pas une image";
+
+			}
+
+			// On vérifie la taille du fichier
+			if($_FILES['avatar']['size'] <= $maxSize){
+ 				$uploads_dir_avatar = '../images';//insertion dans le dossier
+				$tmp_name = $_FILES['avatar']['tmp_name'];
+				$nameAvatar = time().'-'.$_FILES['avatar']['name'];
+
+				// On upload le fichier
+				$uploadAvatar=move_uploaded_file($tmp_name, $uploads_dir_avatar.'/'.$nameAvatar);
+		    }
+		    else{
+		    	$error[]='<p style="color:red">fichier trop volumineux</p>';
+		    }
+	}
+	
+	if(isset($_FILES['image'])){
+			$maxSize = 5*1000*1024; //5Mo
+
+			// On vérifie que le mime type soit le bon
+			$fileMimeType = $finfo->file($_FILES['image']['tmp_name'], FILEINFO_MIME_TYPE);
+			if(!in_array($fileMimeType, $mimeTypeAllowed)){ // 
+				$error[]= "Le fichier n'est pas une image";
+			}
+
+			// On vérifie la taille du fichier
+			if($_FILES['image']['size'] <= $maxSize){
+ 				$uploads_dir_image = '../images';
+				$tmp_name = $_FILES['image']['tmp_name'];
+				$nameCover = time().'-'.$_FILES['image']['name'];
+
+				// On upload le fichier
+				$uploadCover=move_uploaded_file($tmp_name, $uploads_dir_image.'/'.$nameCover);
+		    }
+		    else{
+		    	$error[]='<p style="color:red">fichier trop volumineux</p>';
+		    }
 	}
 
 	// Requetes UPDATE des données options client
@@ -84,15 +128,15 @@ if (!empty($_POST) && isset($_POST)) {
 			$error[] = 'Erreur base de donnée.';
 		}
 
-			$req = $pdo_database->prepare('UPDATE options SET value = :avatar WHERE data = \'avatar\'');
-		$req->bindValue(':avatar', $post['avatar'], PDO::PARAM_STR);
+		$req = $pdo_database->prepare('UPDATE options SET value = :avatar WHERE data = \'avatar\''); //insertion du nom de l'image dans la bdd
+		$req->bindValue(':avatar', 'images'.'/'.$nameAvatar, PDO::PARAM_STR);
 		if($req->execute() == false){
 			$error[] = 'Erreur base de donnée.';
 		}
 
 
-		$req = $pdo_database->prepare('UPDATE options SET value = :main_image WHERE data = \'main_image\'');
-		$req->bindValue(':main_image', $post['image'], PDO::PARAM_STR);
+		$req = $pdo_database->prepare('INSERT INTO pictures_cover(url) VALUES(:url)');
+		$req->bindValue(':url', 'images'.'/'.$nameCover, PDO::PARAM_STR);
 		if($req->execute() == false){
 			$error[] = 'Erreur base de donnée.';
 		}
@@ -137,7 +181,7 @@ foreach ($req->fetchAll() as $elements) {
 		echo '<p style="color:green">Modification effectuée avec succès</p>';
 	}
 ?>  <h1>Modifier les Options Client</h1>
-	<form method="POST">
+	<form method="POST" enctype="multipart/form-data">
 		
 		<label for="nom">Nom :</label>
 		<input type="text" name="nom" id="nom" value="<?php echo $donnees['lastname']?>">
@@ -151,11 +195,11 @@ foreach ($req->fetchAll() as $elements) {
 		<label for="telephone">Téléphone :</label>
 		<input type="text" name="telephone" id="telephone" value="<?php echo $donnees['phone']?>">
 
-		<label for="avatar">URL de l'image :</label>
-		<input type="text" name="avatar" id="avatar" value="<?php echo $donnees['avatar']?>">
+		<label for="avatar">Fichier image personnelle :</label>
+		<input type="file" name="avatar" id="avatar" >
 		
-		<label for="image">URL de l'image :</label>
-		<input type="text" name="image" id="image" value="<?php echo $donnees['main_image']?>">
+		<label for="image">Fichier image de couverture :</label>
+		<input type="file" name="image" id="image" >
 				
 		<input type="submit" value="Mettre à jour les Options">
 	</form>	
