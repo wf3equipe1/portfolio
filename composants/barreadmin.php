@@ -11,9 +11,9 @@ if($_SESSION['isconnected']):
 		$role = 'administrateur';
 	}
 	?>
-	<header>
+	<header class="container">
 		<div>
-			<p>bonjour <span><?php echo $_SESSION['username']?></span>, vous êtes connecté en tant qu'<span><?php echo $role?></span></p>
+			<p>Bonjour <span><?php echo $_SESSION['username']?></span>, vous êtes connecté en tant qu'<span><?php echo $role?></span></p>
 		</div>
 		<nav>
 			<ul>

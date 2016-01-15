@@ -88,9 +88,9 @@ if (!empty($post)) {
 		<input type="text" name="titre" id="titre">
 
 		<label>Contenu :</label>
-		<textarea cols="150" rows="20" name="contenu" id="contenu"></textarea>
+		<textarea cols="140" rows="20" name="contenu" id="contenu"></textarea>
 
-		<input type="submit" value="Publier l'actualité">
+		<input type="submit" value="Publier l'Article">
 
 	</form>
 

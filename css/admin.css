@@ -15,8 +15,12 @@ body{
 	background-color: #e6e6e6;
 	margin: 0 auto;
 	font-size: 14px;
-	
 }
+
+.container{
+	width: 1080px;
+}
+
 
 
 /* __________BARRE____________ */
@@ -24,7 +28,7 @@ body{
 header {
 	background-color: grey;
 	color: white;
-	width: 1340px;
+	
 }
 
 header::after{
@@ -33,33 +37,22 @@ header::after{
 	clear: both;
 }
 
-header div{
-	width: 20%;
-	float: left;
-}
-
 header p{
-	margin: 0 auto;
-	padding: 10px;
-	
-	text-align: center;
+	padding: 12px 25px;	
+	text-align: left;
+	border-bottom: 1px dotted black;
 }
 header p span{
 	font-weight: 700;
 	color: yellow;
 }
 
-header nav{
-	width: 80%;
-	float: right;
-}
-
 header ul{
-	margin-left: 20px;
+	margin-left: 15px;
 }
 
 nav ul li{
-	margin-top: 15px;
+	margin: 15px 0;
 	display: inline-block;
 	
 }
@@ -125,7 +118,7 @@ article{
 	padding: 15px 0;
 }
 
-article p, em{
+article p, article span, article em{
 	margin: 10px;
 	padding: 5px;
 	background-color: white;
@@ -138,7 +131,7 @@ article a{
 
 #modifier{
 	text-align: right;
-	padding-right: 20px;
+	padding-right: 40px;
 }
 
 /* PAGINATION */
