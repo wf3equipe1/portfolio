@@ -32,7 +32,7 @@ if (!empty($_POST)){
 		$req->bindValue(':email', $post['email']);
 		$req->bindValue(':sujet', $post['sujet']);
 		$req->bindValue(':message', $post['message']);
-		if($req->execute()){			
+		if($req->execute()){
 			$formValid = true;
 		}else{
 			$error[] = 'Erreur base de données';
@@ -56,7 +56,8 @@ if (!empty($_POST)){
 <body>
 	<main>
 		<?php include_once 'composants/menugauche.php'; ?>
-		<section id="rightSide" class="decalage">
+		<section id="rightSide">
+            <h1>Contact</h1>
 		<?php
 		if (count($error)>0){
 			echo '<p style="color: red">'.implode('<br>', $error).'</p>';
