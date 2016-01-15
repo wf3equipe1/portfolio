@@ -26,16 +26,16 @@ if ($_SESSION['isconnected'] == false) {
 </head>
 <body>
 <?php 	include_once '../composants/barreadmin.php'; ?>
-	
-<h2>Liste utilisateurs:</h2>
-<?php 
+
+<h1>Liste des utilisateurs:</h1>
+<?php
 
 	$requete=$pdo_database->prepare('SELECT * FROM users');
 	$requete->execute();
 	$result=$requete->fetchAll(PDO::FETCH_ASSOC);
 echo '<ul>';
 foreach ($result as $value) {
-	echo '<li>'.$value['username'].'</li>';	
+	echo '<li>'.$value['username'].'</li>';
 }
 echo '</ul>';
 ?>

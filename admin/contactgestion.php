@@ -67,6 +67,7 @@ if (isset($get['page'])) {
 <body>
 <?php
 include_once '../composants/barreadmin.php';
+echo '<h1>Consulter les messages:</h1>';
 foreach ($message as $value) {
 	$date = 'Le '.date('d/m/Y \à\ H:i', strtotime($value['date']));
 	if ($value['checked']) {

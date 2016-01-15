@@ -32,6 +32,7 @@ if ($_SESSION['isconnected'] == false){
     <body>
 <?php
 include_once '../composants/barreadmin.php';
+echo '<h1>Modifier les articles</h1>';
 
 //pagination
 //par defaut elle est a 1
