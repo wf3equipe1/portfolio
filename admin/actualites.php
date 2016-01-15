@@ -97,9 +97,10 @@ if ($_SESSION['isconnected'] == false){
 	        echo '<p><strong>Contenu : </strong>'.nl2br($val['content']).'</p><br>';
 		    $date = date('d/m/Y à H:i', strtotime($val['date']));
 			echo '<em><strong>Ecrit par : </strong>'.$resultatId['username'].'<strong> le </strong>'.$date.'</em>';
-		    echo '<div id="modifier"><a href="actualites.php?modify='.$val['id'].'">Modifier</a></div>';
-		    // lien de suppression
-		    echo '<div id="delete"><a href="actualites.php?delete='.$val['id'].'">Supprimer</a></div>';
+		     // lien de suppression
+		    echo '<span id="delete"><a href="actualites.php?delete='.$val['id'].'">Supprimer</a></span>';
+		    echo '<span id="modifier"><a href="actualites.php?modify='.$val['id'].'">Modifier</a></span>';
+		   
 			echo '</article><hr />';
 		}
 
