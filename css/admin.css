@@ -118,5 +118,48 @@ form a{
 	font-size: 10px;
 }
 
+/* AFFICHAGE */
+
+article{
+	margin-left: 30px;
+	padding: 15px 0;
+}
+
+article p, em{
+	margin: 10px;
+	padding: 5px;
+	background-color: white;
+	border-radius: 5px;
+}
+
+article a{
+	text-decoration: none;
+}
+
+#modifier{
+	text-align: right;
+	padding-right: 20px;
+}
+
+/* PAGINATION */
+
+.lien{
+	margin-left: 40px;
+	padding: 5px;
+	border-radius: 5px;
+	text-decoration: none;
+	background-color: #ff6666;
+	color: white;
+}
+
+.pagination{
+	margin-top: 30px;
+	text-align: center;	
+}
+
+.pagination a{
+	text-decoration: none;
+}
+
 
 

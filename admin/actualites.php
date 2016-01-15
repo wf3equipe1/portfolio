@@ -91,18 +91,22 @@ if(isset($get['page'])):
 		$resultatId=$requeteId->fetch(PDO::FETCH_ASSOC);
 
 		echo '<article>';
-		echo '<p><strong>Titre:</strong> '.$val['title'].'</p>';
-        echo '<p><strong>Contenu:</strong></p>';
-		echo '<p>'.nl2br($val['content']).'</p><br>';
+		echo '<p><strong>Titre :</strong> '.$val['title'].'</p>';
+        echo '<p><strong>Contenu : </strong>'.nl2br($val['content']).'</p><br>';
 	    $date = date('d/m/Y à H:i', strtotime($val['date']));
-		echo '<em><strong>Ecrit par: </strong>'.$resultatId['username'].'<strong> le </strong>'.$date.'</em>';
-	    echo '<p><a href="actualites.php?modify='.$val['id'].'">Modifier</a></p>';
+		echo '<em><strong>Ecrit par : </strong>'.$resultatId['username'].'<strong> le </strong>'.$date.'</em>';
+	    echo '<p id="modifier"><a href="actualites.php?modify='.$val['id'].'">Modifier</a></p>';
 		echo '</article><hr />';
 	}
 
+	echo '<a class="lien" href="nouvelarticle.php">Ajouter un Article</a>';
+	
 	$next = $get['page'] + 1;// pour passer a la pge suivante
 	$back = $get['page'] - 1;
 
+	?>
+	<div class="pagination">
+	<?php 
 	if($get['page']==1){
 		echo '<a href="actualites.php?page='.$next.'">Page suivante</a>';
 	}else{
@@ -110,8 +114,10 @@ if(isset($get['page'])):
 		echo ' / ';
 		echo '<a href="actualites.php?page='.$next.'">Page suivante</a>';
 	}
-    echo '<p><a href="nouvelarticle.php">Nouvel article</a></p>';
-elseif(isset($get['modify'])):
+	?></div>
+	<?php
+    
+	elseif(isset($get['modify'])):
     $req=$pdo_database->prepare('SELECT * FROM articles WHERE id=:id');
     $req->bindValue(':id', $get['modify'], PDO::PARAM_INT);
     $req->execute();
