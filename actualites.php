@@ -85,8 +85,8 @@ if(isset($get['page'])){
                             }
 
                          ?>
-                        <input type="text" id="search" name="search" placeholder="Recherche" value="<?=$placeholder_search ?>">
-                        <input type="submit" value="Rechercher">
+                        <input type="text" id="search" name="search" placeholder="Recherche..." value="<?=$placeholder_search ?>">
+                        <input type="submit" value="Rechercher" id="searchButton">
                     </form>
                 </div>
                 <?php foreach($articles as $article): ?>

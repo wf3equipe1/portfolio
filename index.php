@@ -31,7 +31,6 @@ $resultat=$requete->fetchAll(PDO::FETCH_ASSOC);
 	 <main>
 	 	<?php include_once 'composants/menugauche.php'; //MENU DE GAUCHE?>
 		<?php
-		 	require_once 'composants/db.php';
 
 		 	$req=$pdo_database->prepare('SELECT * FROM pictures_cover');
 		 	$req->execute();
@@ -49,12 +48,11 @@ $resultat=$requete->fetchAll(PDO::FETCH_ASSOC);
 			            <figcaption>We design clean, crisp & memorable icons</figcaption>
 			        </figure> -->
 			        <ul class="slides">
-			        	<li><img src="
 			        		<?php  
 	        					foreach ($result as $valCover) {
-	        						echo $valCover['url'];
+	        						echo '<li><img src="'.$valCover['url'].'"alt=""></li>';
 	        					}
-        				    ?>" alt=""></li>			            
+        				    ?>      			            
 			        </ul>
 			        <!--
 			        <div class="points">

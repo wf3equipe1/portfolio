@@ -75,7 +75,7 @@ if (!empty($_POST)){
 				<input type="text" id="sujet" name="sujet" placeholder="sujet du message" class="champContact"><br />
 				<label for="message">Message :</label><br />
 				<textarea id="message" name="message" rows="20" cols="70" placeholder="votre message ici..."></textarea><br />
-				<input type="submit" value="Envoyer votre Message" id="envoyerMessage">
+				<input type="submit" value="Envoyer" id="envoyerMessage">
 
 			</form>
             </div>
