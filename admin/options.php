@@ -23,7 +23,57 @@ $formValid = false;
 
 $mimeTypeAllowed= array('image/jpg', 'image/jpeg', 'image/png', 'image/gif'); //fichier possible
 $finfo = new finfo();
+	
+	if(isset($_FILES['image'])){
+			$maxSize = 5*1000*1024; //5Mo
 
+			// On vérifie que le mime type soit le bon
+			$fileMimeType = $finfo->file($_FILES['image']['tmp_name'], FILEINFO_MIME_TYPE);
+			if(!in_array($fileMimeType, $mimeTypeAllowed)){ // 
+				$error[]= "Le fichier n'est pas une image";
+			}
+
+			// On vérifie la taille du fichier
+			if($_FILES['image']['size'] <= $maxSize){
+ 				$uploads_dir_image = '../images';
+				$tmp_name = $_FILES['image']['tmp_name'];
+				$nameCover = $_FILES['image']['name'];
+
+				// On upload le fichier
+				$uploadCover=move_uploaded_file($tmp_name, $uploads_dir_image.'/'.$nameCover);
+		    }
+		    else{
+		    	$error[]='<p style="color:red">fichier trop volumineux</p>';
+		    }
+	}
+
+
+	//fichier image et avatar	
+	if(isset($_FILES['avatar'])){
+			$maxSize = 5*1000*1024; //5Mo
+
+			// On vérifie que le mime type soit le bon
+			$fileMimeType = $finfo->file($_FILES['avatar']['tmp_name'], FILEINFO_MIME_TYPE);
+			if(!in_array($fileMimeType, $mimeTypeAllowed)){ // 
+				$error[]= "Le fichier n'est pas une image";
+
+			}
+
+			// On vérifie la taille du fichier
+			if($_FILES['avatar']['size'] <= $maxSize){
+ 				$uploads_dir_avatar = '../images';//insertion dans le dossier
+				$tmp_name = $_FILES['avatar']['tmp_name'];
+				$nameAvatar = $_FILES['avatar']['name'];
+
+				// On upload le fichier
+				$uploadAvatar=move_uploaded_file($tmp_name, $uploads_dir_avatar.'/'.$nameAvatar);
+		    }
+		    else{
+		    	$error[]='<p style="color:red">fichier trop volumineux</p>';
+		    }
+	}
+
+	
 
 if (!empty($_POST) && isset($_POST)) {
 
@@ -47,56 +97,7 @@ if (!empty($_POST) && isset($_POST)) {
 	if (empty($post['telephone'])) {
 		$error[] = 'Veuillez saisir un numéro de téléphone';
 	}
-
-
-	//fichier image et avatar	
-	if(isset($_FILES['avatar'])){
-			$maxSize = 5*1000*1024; //5Mo
-
-			// On vérifie que le mime type soit le bon
-			$fileMimeType = $finfo->file($_FILES['avatar']['tmp_name'], FILEINFO_MIME_TYPE);
-			if(!in_array($fileMimeType, $mimeTypeAllowed)){ // 
-				$error[]= "Le fichier n'est pas une image";
-
-			}
-
-			// On vérifie la taille du fichier
-			if($_FILES['avatar']['size'] <= $maxSize){
- 				$uploads_dir_avatar = '../images';//insertion dans le dossier
-				$tmp_name = $_FILES['avatar']['tmp_name'];
-				$nameAvatar = time().'-'.$_FILES['avatar']['name'];
-
-				// On upload le fichier
-				$uploadAvatar=move_uploaded_file($tmp_name, $uploads_dir_avatar.'/'.$nameAvatar);
-		    }
-		    else{
-		    	$error[]='<p style="color:red">fichier trop volumineux</p>';
-		    }
-	}
 	
-	if(isset($_FILES['image'])){
-			$maxSize = 5*1000*1024; //5Mo
-
-			// On vérifie que le mime type soit le bon
-			$fileMimeType = $finfo->file($_FILES['image']['tmp_name'], FILEINFO_MIME_TYPE);
-			if(!in_array($fileMimeType, $mimeTypeAllowed)){ // 
-				$error[]= "Le fichier n'est pas une image";
-			}
-
-			// On vérifie la taille du fichier
-			if($_FILES['image']['size'] <= $maxSize){
- 				$uploads_dir_image = '../images';
-				$tmp_name = $_FILES['image']['tmp_name'];
-				$nameCover = time().'-'.$_FILES['image']['name'];
-
-				// On upload le fichier
-				$uploadCover=move_uploaded_file($tmp_name, $uploads_dir_image.'/'.$nameCover);
-		    }
-		    else{
-		    	$error[]='<p style="color:red">fichier trop volumineux</p>';
-		    }
-	}
-
 	// Requetes UPDATE des données options client
 
 	if (count($error) > 0 ) {
