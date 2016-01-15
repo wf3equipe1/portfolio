@@ -98,6 +98,8 @@ if ($_SESSION['isconnected'] == false){
 		    $date = date('d/m/Y à H:i', strtotime($val['date']));
 			echo '<em><strong>Ecrit par : </strong>'.$resultatId['username'].'<strong> le </strong>'.$date.'</em>';
 		    echo '<div id="modifier"><a href="actualites.php?modify='.$val['id'].'">Modifier</a></div>';
+		    // lien de suppression
+		    echo '<div id="delete"><a href="actualites.php?delete='.$val['id'].'">Supprimer</a></div>';
 			echo '</article><hr />';
 		}
 
@@ -139,6 +141,29 @@ if ($_SESSION['isconnected'] == false){
 	        echo '<p>Article introuvable</p>';
 	    endif;
 	endif; ?>
+
+
+
+<?php 
+// variable supression message
+// passer dans un lien en get la variable suppression message(true=detruite) et l'id associer a chaque article
+
+
+if(isset($get['delete'])){ // a securiser
+	echo 'Êtes vous sur de vouloir supprimer cette article ?  ';
+	echo '<a href="actualites.php">Non</a>';
+	echo ' / ';
+	echo '<a href="actualites.php?deleteSure='.$get['delete'].'">Oui</a>'; //recuperation a nouveau de l'article a supprimer
+}
+if(isset($get['deleteSure'])){
+	// requete de suppression si presence en get de delete
+	$reqSuppression=$pdo_database->prepare('DELETE FROM articles WHERE id=:id');
+	$reqSuppression->bindValue(':id', $get['deleteSure'], PDO::PARAM_INT);
+	$reqSuppression->execute();
+	echo 'L\'article a bien été supprimer. <a href="actualites.php">Retour a la page actualités </a>';
+}
+
+?>
 
 	</main>
 </body>
