@@ -34,7 +34,7 @@ $resultat=$requete->fetchAll(PDO::FETCH_ASSOC);
 		 	require_once 'composants/db.php';
 
 		 	$req=$pdo_database->prepare('SELECT * FROM pictures_cover');
-		 	$req=execute();
+		 	$req->execute();
 		 	$result=$req->fetchAll(PDO::FETCH_ASSOC);
 
 		?>
