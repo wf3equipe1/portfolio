@@ -20,7 +20,7 @@ if($_SESSION['isconnected']):
 			<ul>
 				<li><a href="nouvelarticle.php">Nouvel article</a></li>
 				<li><a href="actualites.php">Modifier article</a></li>
-				
+
 				<?php if ($_SESSION['role'] == 'admin'): // réservé à l'admin ?>
 
 				<li><a href="contactgestion.php">Messages</a></li>
@@ -29,7 +29,7 @@ if($_SESSION['isconnected']):
 				<li><a href="options.php">Options</a></li>
 
 				<?php endif; ?>
-				
+
 				<li><a href="motdepasse.php">Modifier mot de passe</a></li>
 				<li><a href="index.php?logout">Deconnecter</a></li>
 			</ul>
