@@ -22,8 +22,10 @@ if ($_SESSION['isconnected'] == false) {
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
+<?php 	include_once '../composants/barreadmin.php'; ?>
 	
 <h2>Liste utilisateurs:</h2>
 <?php 

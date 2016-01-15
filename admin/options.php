@@ -111,9 +111,11 @@ if (!empty($_POST) && isset($_POST)) {
 <head>
 	<title>Modifier les Options Client</title>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
 <?php
+include_once '../composants/barreadmin.php';
 
 // Requete pour récupérer sous forme d'array "$données[]" le contenu de table options
 // et l'insérer en attribut value="" prérempli dans les champs du formulaire  

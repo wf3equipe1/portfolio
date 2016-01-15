@@ -110,10 +110,13 @@ if (!empty($_POST) && isset($_POST)){
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>Mot de passe</title>
+	<link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
 	<?php
+	include_once '../composants/barreadmin.php';
+
 	if ($errorForm) {
 		echo '<p style="color:red">'.implode('<br>', $error).'</p>';
 	}

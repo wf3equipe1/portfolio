@@ -104,9 +104,11 @@ if (!empty($post)) {
 <head>
 	<title>Nouvel utilisateur</title>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
 <?php
+	include_once '../composants/barreadmin.php';	
 
 	// Affichage des erreurs
 	if ($errorForm) {

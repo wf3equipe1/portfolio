@@ -16,10 +16,11 @@ if(!isset($_SESSION['isconnected'])){
 	$_SESSION['isconnected'] = false;
 }
 
-if ($_SESSION['isconnected'] == false):
+if (!$_SESSION['isconnected']){ 
 	header('Location: index.php');
 	die;
-else: ?>
+}
+?>
 
 
 <!DOCTYPE html>
@@ -32,7 +33,6 @@ else: ?>
     <body>
 <?php
 include_once '../composants/barreadmin.php';
-endif;
 
 
 //pagination

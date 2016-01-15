@@ -92,7 +92,10 @@ if (!empty($post)) {
     <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
-<?php if ($_SESSION['isconnected'] == false): ?>
+<?php 
+		include_once '../composants/barreadmin.php';
+		
+		if ($_SESSION['isconnected'] == false): ?>
     <?php if($creation_token): ?>
     <form method="GET" action="index.php">
         <input type="hidden" name="create_token">

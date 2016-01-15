@@ -62,10 +62,11 @@ if (isset($get['page'])) {
 <head>
 	<title>Gestion contact</title>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
 <?php
-
+include_once '../composants/barreadmin.php';
 foreach ($message as $value) {
 	$date = 'Le '.date('d/m/Y \à\ H:i', strtotime($value['date']));
 	if ($value['checked']) {
