@@ -27,7 +27,7 @@ if ($_SESSION['isconnected'] == false) {
 <body>
 <?php 	include_once '../composants/barreadmin.php'; ?>
 
-<h1>Liste des utilisateurs:</h1>
+<h1>Liste des Utilisateurs:</h1>
 <?php
 
 	$requete=$pdo_database->prepare('SELECT u.*, r.role FROM users AS u LEFT JOIN roles AS r ON r.id_user = u.id');

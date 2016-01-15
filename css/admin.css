@@ -36,11 +36,6 @@ header {
 	width: 100%;
 }
 
-header::after{
-	content:"";
-	display: block;
-	clear: both;
-}
 
 header p{
 	padding: 12px 30px;
@@ -141,6 +136,11 @@ main hr {
 }
 
 #modifier{
+	text-align: left;
+	padding-left: 40px;
+}
+
+#supprimer{
 	text-align: right;
 	padding-right: 40px;
 }
@@ -152,6 +152,7 @@ input[type=radio]{
 
 #message{
 	margin-top: 22px;
+}
 
 /* TABLEAU */
 

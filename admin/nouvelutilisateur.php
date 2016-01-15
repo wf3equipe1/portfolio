@@ -133,11 +133,11 @@ if (!empty($post)) {
 		
 		<label for="password2">Confirmer le mot de passe :</label>
 		<input type="password" name="password2" id="password2">
+		
 		<label for="role">Role :</label>
-		<select name="role" id="role">
-			<option value="admin">Admin</option>
-			<option value="editor">Editeur</option>
-		</select>
+		<input type="radio" id="role" name="role" value="admin">Administrateur
+		<input type="radio" id="role" name="role" value="editor" checked>Editeur
+
 		<input type="submit" value="Créer l'Utilisateur">
 	</form>
 
