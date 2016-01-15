@@ -40,7 +40,7 @@ if (!empty($post)) {
 		}
 
 		else { // Insertion dans la base de données si il n'y a pas d'erreur
-			$insertart = $pdo_database->prepare('INSERT INTO articles(title, content, date, author_id) 
+			$insertart = $pdo_database->prepare('INSERT INTO articles(title, content, date, author_id)
 				VALUES(:title, :content, NOW(), :user_id)');
 			$insertart->bindValue(':title', $post['titre']);
 			$insertart->bindValue(':content', $post['contenu']);
@@ -85,11 +85,11 @@ if (!empty($post)) {
 	<h1>Créer un Nouvel Article</h1>
 	<form method="POST">
 		<label for="titre">Titre :</label>
-		<input type="text" name="titre" id="titre">	
-		
+		<input type="text" name="titre" id="titre">
+
 		<label>Contenu :</label>
-		<textarea name="contenu" id="contenu"></textarea>
-		
+		<textarea cols="150" rows="20" name="contenu" id="contenu"></textarea>
+
 		<input type="submit" value="Publier l'actualité">
 
 	</form>
