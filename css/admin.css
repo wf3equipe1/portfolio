@@ -14,7 +14,7 @@ body{
 	background-color: #e6e6e6;
 	margin: 0 auto;
 	font-size: 14px;
-	width: 1500px;
+	width: 1340px;
 }
 
 
@@ -75,15 +75,32 @@ nav ul li a:hover{
 
 /* CHAMPS */
 
+h1{
+	margin-left: 20px;
+	padding: 15px 5px 0;
+}
+
+form{
+	margin-left: 30px;
+	padding-top: 10px;
+}
+
 label{
 	display: block;
-	margin: 10px 5px 0;
+	margin: 15px 5px 0;
 		
 }
 
 input{
 	display: block;
 	margin: 5px;
+}
+
+input[type=submit]{
+	margin-top: 15px;
+	background-color: #ff6666;
+	color: white;
+	padding: 8px;
 }
 
 textarea{
@@ -93,5 +110,11 @@ textarea{
 select{
 	margin: 5px;
 }
+
+form a{
+	margin-left: 10px;
+	font-size: 10px;
+}
+
 
 

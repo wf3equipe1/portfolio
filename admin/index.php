@@ -92,29 +92,32 @@ if (!empty($post)) {
     <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
+	<h1>Connection Espace Utilisateur</h1>
 <?php 
 		include_once '../composants/barreadmin.php';
-		
+
 		if ($_SESSION['isconnected'] == false): ?>
     <?php if($creation_token): ?>
+
     <form method="GET" action="index.php">
         <input type="hidden" name="create_token">
-        <label for="email">Email</label>
+        <label for="email">Email :</label>
         <input type="email" name="email" id="email">
         <br>
         <input type="submit" value="Mot de passe oublié">
     </form>
     <?php elseif(count($error) == 0): ?>
 	<form id="loginform" method="POST">
-		<label for="email">Email</label>
+		<label for="email">Email :</label>
 		<input type="email" name="email" id="email">
 		
-		<label for="password">Mot de passe</label>
+		<label for="password">Mot de passe :</label>
 		<input type="password" name="password" id="password">
 		
 		<input type="submit" value="Se connecter">
+		<p><a href="index.php?demandetoken">Mot de passe oublié</a></p>
 	</form>
-    <p><a href="index.php?demandetoken">Mot de passe oublié</a></p>
+   
     <?php else: ?>
     <p><?= implode(' ', $error); ?></p>
     <p><a href="index.php">Retour</a></p>

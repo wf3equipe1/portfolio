@@ -119,26 +119,26 @@ if (!empty($post)) {
 		echo '<p style="color:green">Le compte a bien été créé</p>';
 	}
 ?>
-
+	<h1>Créer un Nouvel Utilisateur</h1>
 	<!-- Formulaire -->
 	<form method="POST">
-		<label for="pseudo">Pseudo</label>
+		<label for="pseudo">Pseudo :</label>
 		<input type="text" name="pseudo" id="pseudo" placeholder="Votre pseudo">
 		
-		<label for="email">Email</label>
+		<label for="email">Email :</label>
 		<input type="email" name="email" id="email" placeholder="votre@email.fr">
 		
-		<label for="password">Mot de passe</label>
+		<label for="password">Mot de passe :</label>
 		<input type="password" name="password" id="password">
 		
-		<label for="password2">Confirmation mot de passe</label>
+		<label for="password2">Confirmer le mot de passe :</label>
 		<input type="password" name="password2" id="password2">
-		<label for="role">Role</label>
+		<label for="role">Role :</label>
 		<select name="role" id="role">
 			<option value="admin">Admin</option>
 			<option value="editor">Editeur</option>
 		</select>
-		<input type="submit" value="Envoyer">
+		<input type="submit" value="Créer l'Utilisateur">
 	</form>
 
 

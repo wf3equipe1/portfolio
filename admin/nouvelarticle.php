@@ -84,10 +84,10 @@ if (!empty($post)) {
 ?>
 	<h1>Créer un Nouvel Article</h1>
 	<form method="POST">
-		<label for="titre">Titre</label>
+		<label for="titre">Titre :</label>
 		<input type="text" name="titre" id="titre">	
 		
-		<label>Contenu</label>
+		<label>Contenu :</label>
 		<textarea name="contenu" id="contenu"></textarea>
 		
 		<input type="submit" value="Publier l'actualité">

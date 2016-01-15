@@ -136,28 +136,28 @@ foreach ($req->fetchAll() as $elements) {
 	elseif ($formValid) {
 		echo '<p style="color:green">Modification effectuée avec succès</p>';
 	}
-?>
+?>  <h1>Modifier les Options Client</h1>
 	<form method="POST">
-		<h1>Modifier les Options Client</h1>
-		<label for="nom">Nom</label>
+		
+		<label for="nom">Nom :</label>
 		<input type="text" name="nom" id="nom" value="<?php echo $donnees['lastname']?>">
 		
-		<label for="prenom">Prénom</label>
+		<label for="prenom">Prénom :</label>
 		<input type="text" name="prenom" id="prenom" value="<?php echo $donnees['firstname']?>">
 		
-		<label for="email">Email</label>
+		<label for="email">Email :</label>
 		<input type="text" name="email" id="email" value="<?php echo $donnees['email']?>">
 		
-		<label for="telephone">Téléphone</label>
+		<label for="telephone">Téléphone :</label>
 		<input type="text" name="telephone" id="telephone" value="<?php echo $donnees['phone']?>">
 
-		<label for="avatar">URL de l'image</label>
+		<label for="avatar">URL de l'image :</label>
 		<input type="text" name="avatar" id="avatar" value="<?php echo $donnees['avatar']?>">
 		
-		<label for="image">URL de l'image</label>
+		<label for="image">URL de l'image :</label>
 		<input type="text" name="image" id="image" value="<?php echo $donnees['main_image']?>">
 				
-		<input type="submit" value="Mettre à jour">
+		<input type="submit" value="Mettre à jour les Options">
 	</form>	
 
 

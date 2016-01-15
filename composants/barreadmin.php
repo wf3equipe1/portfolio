@@ -18,7 +18,7 @@ if($_SESSION['isconnected']):
 		<nav>
 			<ul>
 				<li><a href="nouvelarticle.php">Nouvel article</a></li>
-				<li><a href="actualites.php">Modifier un article</a></li>
+				<li><a href="actualites.php">Modifier article</a></li>
 				
 				<?php if ($_SESSION['role'] == 'admin'): // réservé à l'admin ?>
 
@@ -29,8 +29,8 @@ if($_SESSION['isconnected']):
 
 				<?php endif; ?>
 				
-				<li><a href="motdepasse.php">Modifier votre mot de passe</a></li>
-				<li><a href="index.php?logout">Vous deconnecter</a></li>
+				<li><a href="motdepasse.php">Modifier mot de passe</a></li>
+				<li><a href="index.php?logout">Deconnecter</a></li>
 			</ul>
 		</nav>
 	</header>

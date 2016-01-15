@@ -35,7 +35,7 @@ if(!empty($_GET) && isset($_GET['token'])){
 }
 
 $errorForm = false;
-$formValid = true;
+$formValid = false;
 $error = array();
 
 if (!empty($_POST) && isset($_POST)){
@@ -124,15 +124,16 @@ if (!empty($_POST) && isset($_POST)){
 		echo '<p style="color:green">Mot de passe mis à jour avec succès</p>';
 	}
 ?>
+	<h1>Modifier votre Mot de Passe</h1>
 	<form method="post">
 		<?php 
 		if (!isset($_GET['token'])):?>		
-			<label for="motdepasse"></label>
+			<label for="motdepasse">Mot de passe actuel :</label>
 			<input type="password" id="motdepasse" name="motdepasse" placeholder="">
 		<?php endif ?>
-			<label for="new1"></label>
+			<label for="new1">Nouveau mot de passe :</label>
 			<input type="password" id="new1" name="new1" placeholder="">
-			<label for="new2"></label>
+			<label for="new2">Confirmer le mot de passe :</label>
 			<input type="password" id="new2" name="new2" placeholder="">
 			<input type="submit" value="Modifier">
 	</form>
