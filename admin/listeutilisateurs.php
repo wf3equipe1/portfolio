@@ -30,14 +30,22 @@ if ($_SESSION['isconnected'] == false) {
 <h1>Liste des utilisateurs:</h1>
 <?php
 
-	$requete=$pdo_database->prepare('SELECT * FROM users');
+	$requete=$pdo_database->prepare('SELECT u.*, r.role FROM users AS u LEFT JOIN roles AS r ON r.id_user = u.id');
 	$requete->execute();
 	$result=$requete->fetchAll(PDO::FETCH_ASSOC);
-echo '<ul>';
+echo '<table>';
+    echo '<thead><tr><td>ID</td><td>Nom d\'utilisateur</td><td>Email</td><td>Rôle</td></tr></thead>';
+    echo '<tbody>';
 foreach ($result as $value) {
-	echo '<li>'.$value['username'].'</li>';
+    echo '<tr>';
+    echo '<td>'.$value['id'].'</td>';
+	echo '<td>'.$value['username'].'</td>';
+    echo '<td>'.$value['email'].'</td>';
+    echo '<td>'.$value['role'].'</td>';
+    echo '</tr>';
 }
-echo '</ul>';
+echo '</tbody>';
+echo '</table>';
 ?>
 </body>
 </html>

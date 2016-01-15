@@ -170,4 +170,6 @@ INSERT INTO `options` (`id`, `data`, `value`) VALUES
 INSERT INTO `users` (`email`, `password`, `username`) VALUES
   ('admin@admin', '', 'admin');
 
+INSERT INTO `roles` (`role`, `id_user`) VALUES ('admin', '0');
+
 INSERT INTO `password_token` (`user_id`, `token`) VALUES ('0', 'first_install');
