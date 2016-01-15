@@ -11,15 +11,16 @@ if($_SESSION['isconnected']):
 		$role = 'administrateur';
 	}
 	?>
-	<header class="container">
-		<div>
+	<header>
+		<div class="container">
 			<p>Bonjour <span><?php echo $_SESSION['username']?></span>, vous êtes connecté en tant qu'<span><?php echo $role?></span></p>
 		</div>
-		<nav>
+		<hr />
+		<nav class="container">
 			<ul>
 				<li><a href="nouvelarticle.php">Nouvel article</a></li>
 				<li><a href="actualites.php">Modifier article</a></li>
-				
+
 				<?php if ($_SESSION['role'] == 'admin'): // réservé à l'admin ?>
 
 				<li><a href="contactgestion.php">Messages</a></li>
@@ -28,7 +29,7 @@ if($_SESSION['isconnected']):
 				<li><a href="options.php">Options</a></li>
 
 				<?php endif; ?>
-				
+
 				<li><a href="motdepasse.php">Modifier mot de passe</a></li>
 				<li><a href="index.php?logout">Deconnecter</a></li>
 			</ul>

@@ -116,7 +116,7 @@ if(!empty($post)){
     <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
-	<h1>Connection Espace Utilisateur</h1>
+	<h1>Connexion Espace Utilisateur</h1>
 <?php
 		include_once '../composants/barreadmin.php';
 

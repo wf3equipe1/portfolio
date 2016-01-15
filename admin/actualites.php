@@ -30,10 +30,11 @@ if ($_SESSION['isconnected'] == false){
     <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
-	<main class="container">
+	
 	<?php
 	include_once '../composants/barreadmin.php';
-	echo '<h1>Modifier les articles</h1>';
+	echo '<main class="container">';
+	echo '<h1>Modifier les Articles</h1>';
 
 	//pagination
 	//par defaut elle est a 1

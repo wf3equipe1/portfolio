@@ -76,38 +76,40 @@ if (isset($get['page'])) {
 	<link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
-<?php
-include_once '../composants/barreadmin.php';
-echo '<h1>Consulter les messages:</h1>';
-if (count($error) == 0 ) {
-	foreach ($message as $value) {
-		$date = 'Le '.date('d/m/Y \à\ H:i', strtotime($value['date']));
-		if ($value['checked']) {
-			echo '<div class="lu">'; // Classe pour les message lu
-		} else  {
-			echo '<div>';
+	<?php
+	include_once '../composants/barreadmin.php';
+	echo '<main class="container">';
+	echo '<h1>Messages Reçus :</h1>';
+	if (count($error) == 0 ) {
+		foreach ($message as $value) {
+			$date = 'Le '.date('d/m/Y \à\ H:i', strtotime($value['date']));
+			if ($value['checked']) {
+				echo '<div class="lu">'; // Classe pour les message lu
+			} else  {
+				echo '<div>';
+			}
+			echo '<p><strong>Date : </strong>'.$date.'</p>';
+			echo '<p><strong>Email : </strong>'.$value['email'].'</p>';
+			echo '<p><strong>Sujet : </strong>'.$value['subject'].'</p><br>';
+		    echo '<p><strong>Message :</strong></p>';
+			echo '<p>'.nl2br($value['message']).'</p>';
+			echo '</div>';
+			echo '<hr />';
 		}
-		echo '<p><strong>Date: </strong>'.$date.'</p>';
-		echo '<p><strong>Email: </strong>'.$value['email'].'</p>';
-		echo '<p><strong>Sujet: </strong>'.$value['subject'].'</p><br>';
-	    echo '<p><strong>Message:</strong></p>';
-		echo '<p>'.nl2br($value['message']).'</p>';
-		echo '</div>';
-		echo '<hr />';
+		if ($offset > 0 ) {
+			$prev = $get['page'] - 1;
+			echo '<p><a href="contactgestion.php?page='.$prev.'">Page précédente</a></p><br>';
+		}
+		if($offset + $tailleDePagination < $nbmessages){
+			$next = $get['page'] + 1;
+			echo '<p><a href="contactgestion.php?page='.$next.'">Page suivante</a></p><br>';
+		}
 	}
-	if ($offset > 0 ) {
-		$prev = $get['page'] - 1;
-		echo '<p><a href="contactgestion.php?page='.$prev.'">Page précédente</a></p><br>';
-	}
-	if($offset + $tailleDePagination < $nbmessages){
-		$next = $get['page'] + 1;
-		echo '<p><a href="contactgestion.php?page='.$next.'">Page suivante</a></p><br>';
-	}
-}
 
-if (count($error) > 0) {
-	echo '<p>'.implode(' ', $error).'</p>';
-}
-?>
+	if (count($error) > 0) {
+		echo '<p>'.implode(' ', $error).'</p>';
+	}
+	?>
+	</main>
 </body>
 </html>
