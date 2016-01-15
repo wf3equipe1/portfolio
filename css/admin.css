@@ -11,17 +11,17 @@ html{
 body{
 	font-family: arial, sans-serif;
 	height: 100%;
-	background-color: aliceblue;
-	max-width: 900px;
-	width: 100%;
+	background-color: #e6e6e6;
 	margin: 0 auto;
+	font-size: 14px;
+	width: 1500px;
 }
 
 
 /* __________BARRE____________ */
 
 header {
-	background-color: #595E4B;
+	background-color: grey;
 	color: white;
 }
 
@@ -32,14 +32,14 @@ header::after{
 }
 
 header div{
-	width: 25%;
+	width: 20%;
 	float: left;
 }
 
 header p{
 	margin: 0 auto;
-	padding: 20px;
-	font-size: 16px;
+	padding: 10px;
+	
 	text-align: center;
 }
 header p span{
@@ -48,16 +48,22 @@ header p span{
 }
 
 header nav{
-	width: 70%;
+	width: 80%;
 	float: right;
 }
 
+header ul{
+	margin-left: 20px;
+}
+
 nav ul li{
+	margin-top: 15px;
 	display: inline-block;
 	
 }
 
 nav ul li a{
+	padding: 5px;
 	text-decoration: none;
 	text-transform: uppercase;
 	color: white;

@@ -22,7 +22,7 @@ if ($_SESSION['isconnected'] == false && !isset($_GET['token'])) {
 if(!empty($_GET) && isset($_GET['token'])){
 	$get = array_map('cleandata', $_GET);
 
-	$req = $pdo_database('SELECT * FROM password_token WHERE token = :token');
+	$req = $pdo_database->prepare('SELECT * FROM password_token WHERE token = :token');
 	$req->bindValue(':token', $get['token']);
 	if($req->execute()){
 		$oubli = $req->fetch();
@@ -68,7 +68,7 @@ if (!empty($_POST) && isset($_POST)){
 	else{
 		// vérification de la validité du "futur ex" mot de passe
 
-		$req = $pdo_database('SELECT password FROM users WHERE id = :id');
+		$req = $pdo_database->prepare('SELECT password FROM users WHERE id = :id');
 		$req->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
 		if($req->execute()){
 			$password = $req->fetch();
