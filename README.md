@@ -16,3 +16,14 @@
 - Login to the admin panel (access: http://yourwebsite/portfolio/admin)
 - Credentials are: admin and the password set
 - You can then create a new account via admin panel, and delete this admin account directly through the database.
+
+
+### Infos SMTP : 
+```
+Host : smtp.mailgun.org
+User : equipe1@wf3.axw.ovh
+Pass : 7TV3Gtaue4F6d2
+
+Port : 587
+Secure : TLS
+```
