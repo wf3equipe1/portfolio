@@ -84,6 +84,19 @@ CREATE TABLE `password_token` (
   `token` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pictures_cover`
+--
+
+CREATE TABLE `pictures_cover` (
+  `id` int(11) NOT NULL,
+  `url` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+​
+
 --
 -- Indexes for dumped tables
 --
@@ -128,6 +141,12 @@ ALTER TABLE `password_token`
   ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
+-- Index pour la table `pictures_cover`
+--
+ALTER TABLE `pictures_cover`
+  ADD PRIMARY KEY (`id`);
+  ​
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -164,8 +183,7 @@ INSERT INTO `options` (`id`, `data`, `value`) VALUES
   (3, 'email', 'test@test.te'),
   (4, 'phone', '0123456789'),
   (5, 'avatar', 'images/picture_example.jpg'),
-  (6, 'title', 'Titre portfolio'),
-  (7, 'main_image', 'images/cover_example.jpg');
+  (6, 'title', 'Titre portfolio');
 
 INSERT INTO `users` (`email`, `password`, `username`) VALUES
   ('admin@admin', '', 'admin');
@@ -173,3 +191,7 @@ INSERT INTO `users` (`email`, `password`, `username`) VALUES
 INSERT INTO `roles` (`role`, `id_user`) VALUES ('admin', '0');
 
 INSERT INTO `password_token` (`user_id`, `token`) VALUES ('0', 'first_install');
+
+
+
+INSERT INTO `pictures_cover` (`url`) VALUES ('images/cover_example.jpg');
