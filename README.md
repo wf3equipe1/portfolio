@@ -14,11 +14,11 @@
     http://yourwebsite/portfolio/admin/motdepasse.php?token=first_install
 
 - Login to the admin panel (access: http://yourwebsite/portfolio/admin)
-- Credentials are: admin and the password set
-- You can then create a new account via admin panel, and delete this admin account directly through the database.
+- Credentials are: admin@admin and the password previously set
+- You can then create a new account via admin panel, and delete this admin@admin account directly through the database.
 
 
-### Infos SMTP : 
+### Infos SMTP :
 ```
 Host : smtp.mailgun.org
 User : equipe1@wf3.axw.ovh

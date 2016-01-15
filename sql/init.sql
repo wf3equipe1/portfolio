@@ -166,3 +166,8 @@ INSERT INTO `options` (`id`, `data`, `value`) VALUES
   (5, 'avatar', 'images/picture_example.jpg'),
   (6, 'title', 'Titre portfolio'),
   (7, 'main_image', 'images/cover_example.jpg');
+
+INSERT INTO `users` (`email`, `password`, `username`) VALUES
+  ('admin@admin', '', 'admin');
+
+INSERT INTO `password_token` (`user_id`, `token`) VALUES ('0', 'first_install');
