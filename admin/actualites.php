@@ -16,11 +16,10 @@ if(!isset($_SESSION['isconnected'])){
 	$_SESSION['isconnected'] = false;
 }
 
-if (!$_SESSION['isconnected']){ 
+if ($_SESSION['isconnected'] == false){
 	header('Location: index.php');
 	die;
-}
-?>
+} ?>
 
 
 <!DOCTYPE html>
@@ -33,7 +32,6 @@ if (!$_SESSION['isconnected']){
     <body>
 <?php
 include_once '../composants/barreadmin.php';
-
 
 //pagination
 //par defaut elle est a 1
@@ -67,10 +65,11 @@ if(isset($get['page'])){
 		$resultatId=$requeteId->fetch(PDO::FETCH_ASSOC);
 
 		echo '<article>';
-		echo '<h3>'.$val['title'].'</h3>';
+		echo '<p><strong>Titre:</strong> '.$val['title'].'</p>';
+        echo '<p><strong>Contenu:</strong></p>';
 		echo '<p>'.nl2br($val['content']).'</p><br>';
 	    $date = date('d/m/Y à H:i', strtotime($val['date']));
-		echo '<em>Ecrit par: '.$resultatId['username'].' le '.$date.'</em>';
+		echo '<em><strong>Ecrit par: </strong>'.$resultatId['username'].'<strong> le </strong>'.$date.'</em>';
 	    echo '<p><a href="actualites.php?modify='.$val['id'].'">Modifier</a></p>';
 		echo '</article><hr />';
 	}

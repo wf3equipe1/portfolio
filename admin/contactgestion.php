@@ -21,11 +21,11 @@ if ($_SESSION['isconnected'] == false) {
 	header('Location: index.php');
 	die;
 }
- // On définit la variable page à 1 
+ // On définit la variable page à 1
 if (!isset($get['page'])) {
 	$get['page'] = 1;
 }
-	
+
 if (isset($get['page'])) {
 	if (is_numeric($get['page'])) {
 		if ($get['page'] == 0 ) {
@@ -48,13 +48,13 @@ if (isset($get['page'])) {
 		else {
 			$valideMessage = true;
 		}
-	} 
+	}
 	else {
         $errors[] = 'Erreur avec la base de donnée.';
     }
-}    
-	
-	
+}
+
+
 
 ?>
 <!DOCTYPE html>
@@ -72,29 +72,26 @@ foreach ($message as $value) {
 	if ($value['checked']) {
 		echo '<div class="lu">'; // Classe pour les message lu
 	} else  {
-		echo '<div>'; 
+		echo '<div>';
 	}
-	echo '<p>'.$value['id'].'</p>';
-	echo '<p>'.$date.'</p>';
-	echo '<p>'.$value['email'].'</p>';
-	echo '<p>'.$value['subject'].'</p>';
+	echo '<p><strong>Date: </strong>'.$date.'</p>';
+	echo '<p><strong>Email: </strong>'.$value['email'].'</p>';
+	echo '<p><strong>Sujet: </strong>'.$value['subject'].'</p><br>';
+    echo '<p><strong>Message:</strong></p>';
 	echo '<p>'.nl2br($value['message']).'</p>';
 	echo '</div>';
 	echo '<hr />';
 }
 if ($offset > 0 ) {
 	$prev = $get['page'] - 1;
-	echo '<p><a href="contactgestion.php?page='.$prev.'">Page précédente</a></p>';
+	echo '<p><a href="contactgestion.php?page='.$prev.'">Page précédente</a></p><br>';
 }
 $next = $get['page'] + 1;
-echo '<p><a href="contactgestion.php?page='.$next.'">Page suivante</a></p>';
+echo '<p><a href="contactgestion.php?page='.$next.'">Page suivante</a></p><br>';
 
 if (count($error) > 0) {
 	echo '<p>'.implode(' ', $error).'</p>';
-
-	echo '<br/><a href="contactgestion.php">Retour</a>';
 }
 ?>
 </body>
 </html>
-
