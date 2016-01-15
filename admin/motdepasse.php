@@ -6,6 +6,9 @@ function cleandata($data){
 	return trim(htmlentities($data));
 }
 
+$post = array_map('cleandata', $_POST);
+$get = array_map('cleandata', $_GET);
+
 // vérification mode session
 
 if(!isset($_SESSION['isconnected'])){
@@ -19,8 +22,7 @@ if ($_SESSION['isconnected'] == false && !isset($_GET['token'])) {
 
 // vérification mode "oubli"
 
-if(!empty($_GET) && isset($_GET['token'])){
-	$get = array_map('cleandata', $_GET);
+if(isset($_GET['token'])){
 
 	$req = $pdo_database->prepare('SELECT * FROM password_token WHERE token = :token');
 	$req->bindValue(':token', $get['token']);
@@ -38,8 +40,7 @@ $errorForm = false;
 $formValid = false;
 $error = array();
 
-if (!empty($_POST) && isset($_POST)){
-	$post = array_map('cleandata', $_POST);
+if (!empty($_POST)){
 
 	// vérification des champs
 
@@ -61,49 +62,50 @@ if (!empty($_POST) && isset($_POST)){
 		$error[] = 'Confirmation de mot de passe incorrecte';
 	}
 
-
-	if ($error > 0){
+	if (count($error) > 0){
 		$errorForm = true;
 	}
 	else{
-		// vérification de la validité du "futur ex" mot de passe
+		// En mode connecté:
+        if(!isset($get['token'])){
+            //On récupère et vérifie l'ancien mot de passe
+            $req = $pdo_database->prepare('SELECT password FROM users WHERE id = :id');
+            $req->bindValue(':id', $_SESSION['user_id'], PDO::PARAM_INT);
+            if($req->execute()){
+                $password = $req->fetch();
+            }
 
-		$req = $pdo_database->prepare('SELECT password FROM users WHERE id = :id');
-		$req->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
-		if($req->execute()){
-			$password = $req->fetch();
-		}
+            if(!password_verify($post['password'], $password['password'])){
+    			$error[] = 'mot de passe incorrect';
+    		}
+    		else{
+    			// update du password dans SQL
+    			$formValid = true;
 
-		if(!password_verify($post['password'], $password)){
-			$err[] = 'mot de passe incorrect';
-		}
-		else{
-			// update du password dans SQL
-			$formValid = true;
-
-			$req = $pdo_database('UPDATE users SET value = :password WHERE id = :id');
-			// en mode session
-			if ($_SESSION['isconnected'] == true || !isset($_GET['token'])){
-				$req->bindValue(':password', $post['new2']);
-				$req->bindValue(':id', $_SESSION['id']);
-				if($req->execute()){
-					$err[] = 'Erreur base dedonnée';
+    			$req = $pdo_database->prepare('UPDATE users SET password = :password WHERE id = :id');
+				$req->bindValue(':password', password_hash($post['new2'], PASSWORD_DEFAULT));
+				$req->bindValue(':id', $_SESSION['user_id']);
+				if(!$req->execute()){
+					$error[] = 'Erreur base de donnée';
 				}
-			}
-			// en mode oubli de mot de passe
-			else {
-				$req->bindValue(':password', $post['new2']);
-				$req->bindValue(':id', $oubli['user_id']);
-				if($req->execute()){
-					$err[] = 'Erreur base dedonnée';
-				}
-			}
+            }
+        } else {
 
-		}
+            $req = $pdo_database->prepare('UPDATE users SET password = :password WHERE id = :id');
+            $req->bindValue(':password', password_hash($post['new2'], PASSWORD_DEFAULT));
+            $req->bindValue(':id', $oubli['user_id']);
+
+            if(!$req->execute()){
+                $error[] = 'Erreur base de donnée';
+            } else {
+                $delete_token = $pdo_database->prepare('DELETE FROM password_token WHERE user_id = :id ');
+                $delete_token->bindValue(':id', $oubli['user_id'], PDO::PARAM_INT);
+                $delete_token->execute();
+                $formValid = true;
+            }
+        }
 	}
 }
-
-
 
 ?>
 <!DOCTYPE html>
@@ -117,7 +119,7 @@ if (!empty($_POST) && isset($_POST)){
 	<?php
 	include_once '../composants/barreadmin.php';
 
-	if ($errorForm) {
+	if (count($error)>0) {
 		echo '<p style="color:red">'.implode('<br>', $error).'</p>';
 	}
 	elseif ($formValid) {
@@ -128,8 +130,8 @@ if (!empty($_POST) && isset($_POST)){
 	<form method="post">
 		<?php
 		if (!isset($_GET['token'])):?>
-			<label for="motdepasse"></label>
-			<input type="password" id="motdepasse" name="motdepasse" placeholder="">
+			<label for="motdepasse">Mot de passe actuel:</label>
+			<input type="password" id="motdepasse" name="password" placeholder="">
 		<?php endif ?>
 			<label for="new1">Nouveau mot de passe :</label>
 			<input type="password" id="new1" name="new1" placeholder="">
