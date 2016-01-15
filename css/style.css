@@ -1,5 +1,6 @@
 @import url('reset.css');
 @import url('normalize.css');
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
 
 
 /* __________________GLOBAL_____________________ */
@@ -12,6 +13,7 @@ body
 	font-family: arial, sans-serif;
 	height: 100%;
 	background-color: #F9F9F9;
+	background-size: 100%;
 }
 
 main
