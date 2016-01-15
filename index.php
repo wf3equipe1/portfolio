@@ -49,15 +49,12 @@ $resultat=$requete->fetchAll(PDO::FETCH_ASSOC);
 			            <figcaption>We design clean, crisp & memorable icons</figcaption>
 			        </figure> -->
 			        <ul class="slides">
-			        	<li><img src="<?php  
-			        					foreach ($result as $valCover) {
-			        						echo $valCover['url'];
-			        					}
-			        				  ?>" alt=""></li>
-			            <li><img src="http://www.louisetzeliemartin.org/medias/images/chat-1.jpg" alt=""></li>
-			            <li><img src="http://www.louisetzeliemartin.org/medias/images/chat.jpg" alt=""></li>
-			            <li><img src="http://media.virginradio.fr/article-2505914-fb-f1415609183/chat-mignon-petit-chaton-therapie-detente.jpg" alt=""></li>
-			            <li><img src="https://www.lepetiterudit.com/wp-content/uploads/2014/08/chat.jpg" alt=""></li>
+			        	<li><img src="
+			        		<?php  
+	        					foreach ($result as $valCover) {
+	        						echo $valCover['url'];
+	        					}
+        				    ?>" alt=""></li>			            
 			        </ul>
 			        <!--
 			        <div class="points">
