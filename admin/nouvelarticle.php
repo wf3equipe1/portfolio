@@ -46,7 +46,7 @@ if (!empty($post)) {
 			$insertart->bindValue(':content', $post['contenu']);
 			$insertart->bindValue(':user_id', $_SESSION['user_id']);
 			if ($insertart->execute()) {
-				$formValide = true;
+				$valideForm = true;
 			}
 		}
 	}
