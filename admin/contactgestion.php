@@ -22,9 +22,6 @@ if ($_SESSION['isconnected'] == false) {
 	die;
 }
 
-$error=array();
-$valideMessage = false;
-
 $tailleDePagination = 10;
 
  // On définit la variable page à 1
@@ -92,9 +89,9 @@ if (isset($get['page'])) {
 			echo '<span><strong>Par : </strong>'.$value['email'].'</span>';
 			echo '<span><strong>Sujet : </strong>'.$value['subject'].'</span><br>';
 			echo '<p id="message"><strong>Message :</strong> '.nl2br($value['message']).'</p>';
-						
+
 			?>
-			<form>
+			<form action="<?=$value['id'] ?>">
 			<input type="radio" name="checked" value="lu" <?php if($value['checked']){ echo "checked";} ?>> LU
 			<input type="radio" name="checked" value="nonlu" <?php if(!$value['checked']){ echo "checked";} ?>> NON LU
 			</form>
@@ -104,7 +101,7 @@ if (isset($get['page'])) {
 		}
 		?>
 		<div class="pagination">
-		<?php 
+		<?php
 		if ($offset > 0 ) {
 			$prev = $get['page'] - 1;
 			echo '<p><a href="contactgestion.php?page='.$prev.'">Page précédente</a></p><br>';
@@ -120,6 +117,9 @@ if (isset($get['page'])) {
 		echo '<p>'.implode(' ', $error).'</p>';
 	}
 	?>
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="../js/jquery.flexslider.js"></script>
+    <script src="../js/main.js"></script>
 	</main>
 </body>
 </html>
