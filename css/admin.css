@@ -101,6 +101,8 @@ input[type=submit]{
 	background-color: #ff6666;
 	color: white;
 	padding: 8px;
+	border: none;
+	border-radius: 5px;
 }
 
 textarea{
@@ -116,10 +118,11 @@ form a{
 	font-size: 10px;
 }
 
+
 /* AFFICHAGE */
 
 article{
-	margin-left: 30px;
+	margin: 0 30px;
 	padding: 15px 0;
 }
 
@@ -143,13 +146,20 @@ main hr {
 	padding-right: 40px;
 }
 
+input[type=radio]{
+	display: inline-block;
+}
+
+#message{
+	margin-top: 22px;
+}
 
 
 /* PAGINATION */
 
 .lien{
 	margin-left: 40px;
-	padding: 5px;
+	padding: 8px;
 	border-radius: 5px;
 	text-decoration: none;
 	background-color: #ff6666;

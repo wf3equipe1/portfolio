@@ -84,18 +84,27 @@ if (isset($get['page'])) {
 		foreach ($message as $value) {
 			$date = 'Le '.date('d/m/Y \à\ H:i', strtotime($value['date']));
 			if ($value['checked']) {
-				echo '<div class="lu">'; // Classe pour les message lu
+				echo '<article class="lu">'; // Classe pour les message lu
 			} else  {
-				echo '<div>';
+				echo '<article>';
 			}
-			echo '<p><strong>Date : </strong>'.$date.'</p>';
-			echo '<p><strong>Email : </strong>'.$value['email'].'</p>';
-			echo '<p><strong>Sujet : </strong>'.$value['subject'].'</p><br>';
-		    echo '<p><strong>Message :</strong></p>';
-			echo '<p>'.nl2br($value['message']).'</p>';
-			echo '</div>';
+			echo '<span><strong>Envoyé : </strong>'.$date.'</span>';
+			echo '<span><strong>Par : </strong>'.$value['email'].'</span>';
+			echo '<span><strong>Sujet : </strong>'.$value['subject'].'</span><br>';
+			echo '<p id="message"><strong>Message :</strong> '.nl2br($value['message']).'</p>';
+						
+			?>
+			<form>
+			<input type="radio" name="checked" value="lu" <?php if($value['checked']){ echo "checked";} ?>> LU
+			<input type="radio" name="checked" value="nonlu" <?php if(!$value['checked']){ echo "checked";} ?>> NON LU
+			</form>
+			<?php
+			echo '</article>';
 			echo '<hr />';
 		}
+		?>
+		<div class="pagination">
+		<?php 
 		if ($offset > 0 ) {
 			$prev = $get['page'] - 1;
 			echo '<p><a href="contactgestion.php?page='.$prev.'">Page précédente</a></p><br>';
@@ -104,6 +113,7 @@ if (isset($get['page'])) {
 			$next = $get['page'] + 1;
 			echo '<p><a href="contactgestion.php?page='.$next.'">Page suivante</a></p><br>';
 		}
+		?></div><?php
 	}
 
 	if (count($error) > 0) {
