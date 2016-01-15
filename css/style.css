@@ -249,3 +249,9 @@ article:hover
 	box-shadow: 0.8px 0.8px 5px #999;
     background: linear-gradient(to bottom,#6dc5df 0%, #6dc5df 50%,#429fb8 100%);
 }
+
+/* MESSAGES SUCCES ERREURS */
+
+.popup {
+	margin-left: 30px;
+}

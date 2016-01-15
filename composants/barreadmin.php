@@ -11,11 +11,12 @@ if($_SESSION['isconnected']):
 		$role = 'administrateur';
 	}
 	?>
-	<header class="container">
-		<div>
+	<header>
+		<div class="container">
 			<p>Bonjour <span><?php echo $_SESSION['username']?></span>, vous êtes connecté en tant qu'<span><?php echo $role?></span></p>
 		</div>
-		<nav>
+		<hr />
+		<nav class="container">
 			<ul>
 				<li><a href="nouvelarticle.php">Nouvel article</a></li>
 				<li><a href="actualites.php">Modifier article</a></li>

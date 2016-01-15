@@ -18,16 +18,22 @@ body{
 }
 
 .container{
-	width: 1080px;
+	max-width: 1080px;
 }
 
 
 
 /* __________BARRE____________ */
 
+header hr {
+	border-bottom: 1px dotted black;
+	margin: 0;
+}
+
 header {
 	background-color: grey;
 	color: white;
+	width: 100%;
 	
 }
 
@@ -38,9 +44,8 @@ header::after{
 }
 
 header p{
-	padding: 12px 25px;	
+	padding: 12px 30px;	
 	text-align: left;
-	border-bottom: 1px dotted black;
 }
 header p span{
 	font-weight: 700;
@@ -129,10 +134,16 @@ article a{
 	text-decoration: none;
 }
 
+main hr {
+	margin-bottom: 15px;
+}
+
 #modifier{
 	text-align: right;
 	padding-right: 40px;
 }
+
+
 
 /* PAGINATION */
 

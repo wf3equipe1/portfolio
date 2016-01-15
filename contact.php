@@ -60,10 +60,10 @@ if (!empty($_POST)){
             <h1>Contact</h1>
 		<?php
 		if (count($error)>0){
-			echo '<p style="color: red">'.implode('<br>', $error).'</p>';
+			echo '<p class="popup" style="color: red">'.implode('<br>', $error).'</p>';
 		}
 		else if($formValid){
-			echo '<p style="color: green">Votre message a été envoyé avec succès</p>';
+			echo '<p class="popup" style="color: green">Votre message a été envoyé avec succès</p>';
 		}
 
 		?>
