@@ -37,6 +37,9 @@ if ($_SESSION['isconnected'] == false){
 	echo '<h1>Modifier les Articles</h1>';
 
 	//pagination
+	
+
+	$tailleDePagination = 10;
 	//par defaut elle est a 1
 	if(empty($get)){
 		$get['page']=1;
@@ -80,12 +83,26 @@ if ($_SESSION['isconnected'] == false){
 
 		$offset = 0;
 		//Affichge des articles
-		$requete=$pdo_database->prepare('SELECT * FROM articles ORDER BY date DESC LIMIT 10 OFFSET :offset');
+		$requete=$pdo_database->prepare('SELECT * FROM articles ORDER BY date DESC LIMIT :size OFFSET :offset');
+		$nbarticles_req = $pdo_database->prepare('SELECT COUNT(*) FROM articles');
 		$requete->bindValue(':offset', $offset, PDO::PARAM_INT);
-		$requete->execute();
-		$resultat=$requete->fetchAll(PDO::FETCH_ASSOC);
+		$requete->bindValue(':size', $tailleDePagination, PDO::PARAM_INT);
+		 if ($requete->execute()) {
+		 	$nbarticles_req->execute();
+       		$nbarticles = $nbarticles_req->fetchColumn();
+        	$articles = $requete->fetchAll();
+        	if(count($articles)==0){
+            $errors[] = 'Aucun résultat.';
+        	} 
+        	else {
+            $validArticles = true;
+       	 	}
+   		 } 
+   		 else {
+       		 $errors[] = 'Erreur avec la base de donnée.';
+    		}
 
-		foreach ($resultat as $val){
+		foreach ($articles as $val){
 			//requete pour nom d'utilisateur par id
 			$requeteId=$pdo_database->prepare('SELECT * FROM users WHERE id=:id');
 			$requeteId->bindValue(':id', $val['author_id']);
@@ -112,12 +129,13 @@ if ($_SESSION['isconnected'] == false){
 		?>
 		<div class="pagination">
 		<?php 
-		if($get['page']==1){
-			echo '<a href="actualites.php?page='.$next.'">Page suivante</a>';
-		}else{
-			echo '<a href="actualites.php?page='.$back.'">Page precedente</a>';
-			echo ' / ';
-			echo '<a href="actualites.php?page='.$next.'">Page suivante</a>';
+		if ($offset > 0 ) {
+			$prev = $get['page'] - 1;
+			echo '<p><a href="contactgestion.php?page='.$back.'">Page précédente</a></p><br>';
+		}
+		if($offset + $tailleDePagination < $nbarticles){
+			$next = $get['page'] + 1;
+			echo '<p><a href="contactgestion.php?page='.$next.'">Page suivante</a></p><br>';
 		}
 		?></div>
 		<?php
