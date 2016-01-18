@@ -1,6 +1,25 @@
 <?php
 
 require_once 'composants/db.php';
+require 'PHPMailerAutoload.php';
+
+$mail = new PHPMailer;
+
+$mail->isSMTP();                                      
+$mail->Host = 'smtp.mailgun.org';  
+$mail->SMTPAuth = true;                              
+$mail->Username = 'equipe1@wf3.axw.ovh';                
+$mail->Password = '7TV3Gtaue4F6d2';                          
+$mail->SMTPSecure = 'tls';                           
+$mail->Port = 587;
+
+//recuperation mail
+$reqMail = $pdo_database->prepare('SELECT email FROM options');
+$reqMail=execute();
+$resultatMail=$reqMail->fetch(PDO::FETCH_ASSOC);
+
+$mail->setFrom('equipe1@wf3.axw.ovh', 'portfolio');
+$mail->addAddress($resultatMail['email'], 'formulaire de contact');
 
 function cleandata($data){
 	return trim(htmlentities($data));
@@ -32,6 +51,12 @@ if (!empty($_POST)){
 	if(count($error) > 0){
 		$errorForm = true;
 	}else{
+		$mail->isHTML(true); 
+
+		$mail->Subject = $post['sujet'];
+		$mail->Body    = $post['message'];
+		$mail->send(); // Pas besoin de check les erreurs vu que au pire il est dans la db
+
 		$req = $pdo_database->prepare('INSERT INTO contact (email, subject, message, date, checked) VALUES (:email, :sujet, :message, NOW(), FALSE)');
 		$req->bindValue(':email', $post['email']);
 		$req->bindValue(':sujet', $post['sujet']);
