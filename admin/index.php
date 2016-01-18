@@ -63,6 +63,10 @@ if (isset($get['create_token'])){
 
         $reset_addr = explode("index.php", $_SERVER['REQUEST_URI'])[0].'motdepasse.php?token='.$token;
         $mail->Body = 'Vous avez oublié votre mot de passe, pour le ré-initialiser utilisez le lien suivant: '.$reset_addr;
+
+        if(!$mail->send()) {
+            $error[] = 'Message non envoyé';
+        }
     }
 }
 
