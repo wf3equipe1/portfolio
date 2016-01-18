@@ -1,7 +1,7 @@
 <?php
 
 require_once 'composants/db.php';
-require 'PHPMailerAutoload.php';
+require 'vendor/autoload.php';
 
 $mail = new PHPMailer;
 
@@ -15,7 +15,7 @@ $mail->Port = 587;
 
 //recuperation mail
 $reqMail = $pdo_database->prepare('SELECT email FROM options');
-$reqMail=execute();
+$reqMail->execute();
 $resultatMail=$reqMail->fetch(PDO::FETCH_ASSOC);
 
 $mail->setFrom('equipe1@wf3.axw.ovh', 'portfolio');
