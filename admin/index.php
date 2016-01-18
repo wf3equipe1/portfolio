@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../composants/db.php';
-require 'PHPMailerAutoload.php';
+require '../vendor/autoload.php';
 
 $mail = new PHPMailer;
 
