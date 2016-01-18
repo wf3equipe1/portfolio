@@ -27,7 +27,7 @@ if (!empty($post)) {
 		if (empty($post['titre'])) {
 			$error[] = 'Le champ titre ne doit pas être vide.';
 		}
-		elseif (preg_match("#[a-zA-Z\-]{5,}#", $post['titre'])) {
+		elseif (preg_match("/[\w\-]{5,}/", $post['titre'])) {
 			
 		}
 		else {
@@ -37,7 +37,7 @@ if (!empty($post)) {
 		if (empty($post['contenu'])) {
 			$error[] = 'Le champ contenu ne doit pas être vide.';
 		}
-		elseif (preg_match("#[\w\-\.]{20,}", $post['contenu'])) {
+		elseif (preg_match("/[\w\-\.]{20,}/", $post['contenu'])) {
 			
 		}
 		else {
