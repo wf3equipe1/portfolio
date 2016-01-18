@@ -1,6 +1,9 @@
 <?php
 session_start();
 require_once '../composants/db.php';
+require 'PHPMailerAutoload.php';
+
+$mail = new PHPMailer;
 
 function cleandata($data){
 	return trim(htmlentities($data));
@@ -34,19 +37,32 @@ if (isset($get['create_token'])){
     $req->bindValue(':email', $get['email']);
     $req->execute();
     $utilisateur = $req->fetch();
+    $token = uniqid(rand(), true);
     if($utilisateur != false){
         $req = $pdo_database->prepare('INSERT INTO password_token (user_id, token) VALUES (:id, :token)');
         $req->bindValue(':id', $utilisateur['id']);
-        $req->bindValue(':token',uniqid(rand(), true));
+        $req->bindValue(':token', $token);
         if($req->execute() == false ){
             $req = $pdo_database->prepare('UPDATE password_token SET token = :token WHERE user_id = :id');
             $req->bindValue(':id', $utilisateur['id']);
-            $req->bindValue(':token',md5(uniqid(rand(), true)));
+            $req->bindValue(':token', $token);
             $req->execute();
         };
         //SEND EMAIL HERE
-        // substr() + $_SERVER['REQUEST_URI']
-        // http://site/admin/motdepasse.php?token=$token
+        $mail->isSMTP();
+        $mail->Host = 'smtp.mailgun.org';
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'equipe1@wf3.axw.ovh';                 // SMTP username
+        $mail->Password = '7TV3Gtaue4F6d2';                           // SMTP password
+        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;
+
+        $mail->setFrom('equipe1@wf3.axw.ovh', 'Portfolio');
+        $mail->addAddress($get['email'], 'Contact');
+        $mail->Subject = 'Oubli du mot de passe';
+
+        $reset_addr = explode("index.php", $_SERVER['REQUEST_URI'])[0].'motdepasse.php?token='.$token;
+        $mail->Body = 'Vous avez oublié votre mot de passe, pour le ré-initialiser utilisez le lien suivant: '.$reset_addr;
     }
 }
 
