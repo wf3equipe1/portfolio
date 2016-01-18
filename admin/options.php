@@ -139,6 +139,12 @@ if (!empty($_POST) && isset($_POST)) {
 			$error[] = 'Erreur base de donnée.';
 		}
 
+		$req = $pdo_database->prepare('UPDATE options SET value = :titre WHERE data = \'title\'');
+		$req->bindValue(':titre', $post['titre'], PDO::PARAM_STR);
+		if ($req->execute() == false) {
+			$error[] = 'Erreur base de donnée.';
+		}
+
 		if ($_FILES['avatar']['size'] != 0) {
 
 			$req = $pdo_database->prepare('UPDATE options SET value = :avatar WHERE data = \'avatar\''); //insertion du nom de l'image dans la bdd
@@ -212,6 +218,9 @@ foreach ($req->fetchAll() as $elements) {
 		
 		<label for="telephone">Téléphone :</label>
 		<input type="text" name="telephone" id="telephone" value="<?php echo $donnees['phone']?>">
+
+		<label for="titre">Titre :</label>
+		<input type="text" name="titre" id="titre" value="<?php echo $donnees['title']?>">
 
 		<label for="avatar">Fichier image personnelle :</label>
 		<input type="file" name="avatar" id="avatar" >
