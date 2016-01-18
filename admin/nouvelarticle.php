@@ -27,13 +27,23 @@ if (!empty($post)) {
 		if (empty($post['titre'])) {
 			$error[] = 'Le champ titre ne doit pas être vide.';
 		}
-		elseif (strlen($post['titre']) > 150) {
-			$error[] = 'Le titre ne doit pas dépasser 150 caractères.';
+		elseif (preg_match("#[a-zA-Z\-]{5,}#", $post['titre'])) {
+			
+		}
+		else {
+			$error[] = "Le titre doit contenir 5 caractères minimum.";
 		}
 
 		if (empty($post['contenu'])) {
 			$error[] = 'Le champ contenu ne doit pas être vide.';
 		}
+		elseif (preg_match("#[\w\-\.]{20,}", $post['contenu'])) {
+			
+		}
+		else {
+			$error[] = 'Le contenu doit contenir au minimum 20 caractères.';
+		}
+
 
 		if (count($error) > 0) {
 			$errorForm = true;

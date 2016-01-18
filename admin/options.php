@@ -23,55 +23,56 @@ $formValid = false;
 
 $mimeTypeAllowed= array('image/jpg', 'image/jpeg', 'image/png', 'image/gif'); //fichier possible
 $finfo = new finfo();
+
 	
-	if(isset($_FILES['image'])){
-			$maxSize = 5*1000*1024; //5Mo
+if(isset($_FILES['image']) && $_FILES['image']['size'] != 0){
+	$maxSize = 5*1000*1024; //5Mo
 
-			// On vérifie que le mime type soit le bon
-			$fileMimeType = $finfo->file($_FILES['image']['tmp_name'], FILEINFO_MIME_TYPE);
-			if(!in_array($fileMimeType, $mimeTypeAllowed)){ // 
-				$error[]= "Le fichier n'est pas une image";
-			}
-
-			// On vérifie la taille du fichier
-			if($_FILES['image']['size'] <= $maxSize){
- 				$uploads_dir_image = '../images';
-				$tmp_name = $_FILES['image']['tmp_name'];
-				$nameCover = $_FILES['image']['name'];
-
-				// On upload le fichier
-				$uploadCover=move_uploaded_file($tmp_name, $uploads_dir_image.'/'.$nameCover);
-		    }
-		    else{
-		    	$error[]='<p style="color:red">fichier trop volumineux</p>';
-		    }
+	// On vérifie que le mime type soit le bon
+	$fileMimeType = $finfo->file($_FILES['image']['tmp_name'], FILEINFO_MIME_TYPE);
+	if(!in_array($fileMimeType, $mimeTypeAllowed)){ // 
+		$error[]= "Le fichier n'est pas une image";
 	}
 
+	// On vérifie la taille du fichier
+	if($_FILES['image']['size'] <= $maxSize){
+			$uploads_dir_image = '../images';
+		$tmp_name = $_FILES['image']['tmp_name'];
+		$nameCover = $_FILES['image']['name'];
 
-	//fichier image et avatar	
-	if(isset($_FILES['avatar'])){
-			$maxSize = 5*1000*1024; //5Mo
+		// On upload le fichier
+		$uploadCover=move_uploaded_file($tmp_name, $uploads_dir_image.'/'.$nameCover);
+    }
+    else{
+    	$error[]='<p style="color:red">fichier trop volumineux</p>';
+    }
+}
 
-			// On vérifie que le mime type soit le bon
-			$fileMimeType = $finfo->file($_FILES['avatar']['tmp_name'], FILEINFO_MIME_TYPE);
-			if(!in_array($fileMimeType, $mimeTypeAllowed)){ // 
-				$error[]= "Le fichier n'est pas une image";
 
-			}
+//fichier image et avatar	
+if(isset($_FILES['avatar']) && $_FILES['avatar']['size'] != 0){
+	$maxSize = 5*1000*1024; //5Mo
 
-			// On vérifie la taille du fichier
-			if($_FILES['avatar']['size'] <= $maxSize){
- 				$uploads_dir_avatar = '../images';//insertion dans le dossier
-				$tmp_name = $_FILES['avatar']['tmp_name'];
-				$nameAvatar = $_FILES['avatar']['name'];
+	// On vérifie que le mime type soit le bon
+	$fileMimeType = $finfo->file($_FILES['avatar']['tmp_name'], FILEINFO_MIME_TYPE);
+	if(!in_array($fileMimeType, $mimeTypeAllowed)){ // 
+		$error[]= "Le fichier n'est pas une image";
 
-				// On upload le fichier
-				$uploadAvatar=move_uploaded_file($tmp_name, $uploads_dir_avatar.'/'.$nameAvatar);
-		    }
-		    else{
-		    	$error[]='<p style="color:red">fichier trop volumineux</p>';
-		    }
 	}
+
+	// On vérifie la taille du fichier
+	if($_FILES['avatar']['size'] <= $maxSize){
+			$uploads_dir_avatar = '../images';//insertion dans le dossier
+		$tmp_name = $_FILES['avatar']['tmp_name'];
+		$nameAvatar = $_FILES['avatar']['name'];
+
+		// On upload le fichier
+		$uploadAvatar=move_uploaded_file($tmp_name, $uploads_dir_avatar.'/'.$nameAvatar);
+    }
+    else{
+    	$error[]='<p style="color:red">fichier trop volumineux</p>';
+    }
+}
 
 	
 
@@ -90,12 +91,21 @@ if (!empty($_POST) && isset($_POST)) {
 	if (empty($post['email'])) {
 		$error[] = 'Veuillez saisir un email';
 	}
-	elseif (!filter_var($post['email'], FILTER_VALIDATE_EMAIL)) {
-		$error[] = 'La syntaxe de l\'email n\'est pas correcte';
+	elseif (preg_match("/^[\w\-\.]+@[\w\-\.]+\.[a-z]{2,}$/i", $post['email'])) {
+	  		
 	}
+	else {
+	  	$error[] = 'La syntaxe de l\'email n\'est pas correcte';
+	 }
 
 	if (empty($post['telephone'])) {
 		$error[] = 'Veuillez saisir un numéro de téléphone';
+	}
+	elseif (preg_match("/^0[1-7][0-9]{8}$/", $post['telephone'])) {
+		
+	}
+	else {
+		$error[] = 'Le numéro de télephone n\'est pas bon';
 	}
 	
 	// Requetes UPDATE des données options client
@@ -129,19 +139,26 @@ if (!empty($_POST) && isset($_POST)) {
 			$error[] = 'Erreur base de donnée.';
 		}
 
-		$req = $pdo_database->prepare('UPDATE options SET value = :avatar WHERE data = \'avatar\''); //insertion du nom de l'image dans la bdd
-		$req->bindValue(':avatar', 'images'.'/'.$nameAvatar, PDO::PARAM_STR);
-		if($req->execute() == false){
-			$error[] = 'Erreur base de donnée.';
+		if ($_FILES['avatar']['size'] != 0) {
+
+			$req = $pdo_database->prepare('UPDATE options SET value = :avatar WHERE data = \'avatar\''); //insertion du nom de l'image dans la bdd
+			$req->bindValue(':avatar', 'images'.'/'.$nameAvatar, PDO::PARAM_STR);
+			if($req->execute() == false){
+				$error[] = 'Erreur base de donnée.';
+			}
+		}
+
+		if ($_FILES['image']['size'] != 0) {
+			$req = $pdo_database->prepare('INSERT INTO pictures_cover(url) VALUES(:url)');
+			$req->bindValue(':url', 'images'.'/'.$nameCover, PDO::PARAM_STR);
+			if($req->execute() == false){
+				$error[] = 'Erreur base de donnée.';
 		}
 
 
-		$req = $pdo_database->prepare('INSERT INTO pictures_cover(url) VALUES(:url)');
-		$req->bindValue(':url', 'images'.'/'.$nameCover, PDO::PARAM_STR);
-		if($req->execute() == false){
-			$error[] = 'Erreur base de donnée.';
 		}
 
+		
 				
 		$formValid = true;
 

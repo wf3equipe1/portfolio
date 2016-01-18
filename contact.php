@@ -15,8 +15,12 @@ if (!empty($_POST)){
 
 	if(empty($post['email'])){
 		$error[] = 'Veuillez entrer votre email';
-		} else if(!filter_var($post['email'], FILTER_VALIDATE_EMAIL)){
-			$error[] = 'Votre email n\'est pas au bon format';
+	} 
+	elseif (preg_match("/^[\w\-\.]+@[\w\-\.]+\.[a-z]{2,}$/i", $post['email'])) {
+		  		
+	}
+	else {
+		$error[] = 'La syntaxe de l\'email n\'est pas correcte';
 	}
 
 	if (empty($post['sujet'])){

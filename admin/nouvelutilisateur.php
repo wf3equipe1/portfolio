@@ -36,24 +36,26 @@ if (!empty($post)) {
 	  	if (empty($post['email'])) {
 	  		$error[] = 'Le champ email ne doit pas être vide';
 	  	}
-	  	elseif (!filter_var($post['email'], FILTER_VALIDATE_EMAIL)) {
+	  	elseif (preg_match("/^[\w\-\.]+@[\w\-\.]+\.[a-z]{2,}$/i", $post['email'])) {
+	  		
+	  	}
+	  	else {
 	  		$error[] = 'La syntaxe de l\'email n\'est pas correcte';
 	  	}
-	  	elseif (strlen($post['email']) > 255) {
+	  	if (strlen($post['email']) > 255) {
 	  		$error[] = 'L\'email ne doit pas dépasser 255 caractères';
 	  	}
 
 	  	if (empty($post['password'])) {
 	  		$error[] = 'Le champ mot de passe ne doit pas être vide';
 	  	}
-	  	elseif (strlen($post['password']) > 255) {
-	  		$error[] = 'Le mot de passe ne doit pas dépasser 255 caractères';
+	  	elseif (preg_match("/[\w]{8,}/", $post['password']) && !preg_match("/[\w]{20,}/", $post['password'])) {
+	  	
 	  	}
-
-	  	if (strlen($post['password2']) > 255) {
-	  		$error[] = 'Le mot de passe ne doit pas dépasser 255 caractères';
+	  	else {
+	  		$error[] = 'Le mot de passe doit contenir entre 8 et 20 caractères';
 	  	}
-
+	  
 	  	if ($post['password'] != $post['password2']) {
 	  		$error[] = 'Les deux mots de passe doivent être identique';
 	  	}
