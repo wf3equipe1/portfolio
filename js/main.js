@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('.flexslider').flexslider();
 
-    $(':radio').change(function(){
+    $(':radio.readmsg').change(function(){
         $.get("readmsg.php", {checked: $(this).val(), article: $(this).parent().attr('action')});
     });
 });

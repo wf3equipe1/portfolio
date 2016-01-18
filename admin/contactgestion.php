@@ -92,8 +92,8 @@ if (isset($get['page'])) {
 
 			?>
 			<form action="<?=$value['id'] ?>">
-			<input type="radio" name="checked" value="lu" <?php if($value['checked']){ echo "checked";} ?>> LU
-			<input type="radio" name="checked" value="nonlu" <?php if(!$value['checked']){ echo "checked";} ?>> NON LU
+			<input type="radio" class="readmsg" name="checked" value="lu" <?php if($value['checked']){ echo "checked";} ?>> LU
+			<input type="radio" class="readmsg" name="checked" value="nonlu" <?php if(!$value['checked']){ echo "checked";} ?>> NON LU
 			</form>
 			<?php
 			echo '</article>';
